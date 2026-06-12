@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Максим Леонов — AI-наставник | Обучение ИИ, ChatGPT и нейросетям</title>
+  <meta name="description" content="Максим Леонов — AI-наставник и эксперт по искусственному интеллекту. Воркшопы по ChatGPT и нейросетям, наставничество 1:1, корпоративное обучение ИИ. Основатель M.AI.N — крупнейшего AI-сообщества Беларуси. 350+ учеников.">
+  <meta name="keywords" content="AI наставник, обучение ИИ, ChatGPT курс, промптинг, нейросети обучение, ИИ для бизнеса, воркшоп искусственный интеллект, Максим Леонов, M.AI.N, Беларусь, Минск">
+  <meta name="author" content="Максим Леонов">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://neprostomaksim.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neprostomaksim.com/">
+  <meta property="og:title" content="Максим Леонов — AI-наставник | Обучение ИИ и ChatGPT">
+  <meta property="og:description" content="Воркшопы по нейросетям, наставничество 1:1 и корпоративное обучение ИИ. Основатель M.AI.N — крупнейшего AI-сообщества Беларуси (2500+ участников). 350+ учеников.">
+  <meta property="og:image" content="https://neprostomaksim.com/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Максим Леонов | AI-наставник">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Максим Леонов — AI-наставник | Обучение нейросетям">
+  <meta name="twitter:description" content="Воркшопы по ChatGPT, наставничество 1:1 и корпоративное обучение ИИ. 40 000+ аудитория, 350+ учеников.">
+  <meta name="twitter:image" content="https://neprostomaksim.com/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Максим Леонов",
+    "jobTitle": "AI-наставник, эксперт по искусственному интеллекту",
+    "description": "Провожу воркшопы по ChatGPT и нейросетям, личное наставничество 1:1 и корпоративное обучение ИИ. Основатель M.AI.N — крупнейшего AI-сообщества Беларуси.",
+    "url": "https://neprostomaksim.com",
+    "sameAs": ["https://instagram.com/neprostomaksim","https://t.me/leonovmax","https://t.me/neprostonewsai"],
+    "knowsAbout": ["Искусственный интеллект","ChatGPT","Промптинг","Нейросети","ИИ для бизнеса","Claude AI","Midjourney","AI-автоматизация"],
+    "address": {"@type": "PostalAddress","addressCountry": "BY","addressLocality": "Минск"},
+    "offers": [
+      {"@type":"Offer","name":"Воркшоп по ChatGPT и нейросетям","description":"Групповые практические интенсивы по работе с ИИ-инструментами"},
+      {"@type":"Offer","name":"Наставничество по ИИ 1:1","description":"Персональная работа по внедрению искусственного интеллекта"},
+      {"@type":"Offer","name":"Корпоративное обучение ИИ","description":"Программы по искусственному интеллекту для команд и компаний"},
+      {"@type":"Offer","name":"Внедрение ИИ для бизнеса","description":"Аудит процессов и сопровождение внедрения ИИ от стратегии до результата"}
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --chalk: #F7F7F3;
+      --chalk-dim: #EFEFEB;
+      --coal: #2A2A26;
+      --coal-mid: #5A5A54;
+      --coal-light: #9A9A94;
+      --lime: #C8E620;
+      --lime-dark: #A8C400;
+      --lime-glow: rgba(200,230,32,0.10);
+      --font-main: 'Montserrat', sans-serif;
+      --font-mono: 'Anonymous Pro', monospace;
+      --container: 1200px;
+      --section-pad: clamp(80px,10vw,140px);
+      --side-pad: clamp(24px,5vw,80px);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-main);background:var(--chalk);color:var(--coal);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;}
+    img{display:block;max-width:100%;}
+    button{font-family:inherit;cursor:pointer;}
+    ul{list-style:none;}
+    .container{max-width:var(--container);margin:0 auto;padding:0 var(--side-pad);}
+    .section-label{font-family:var(--font-mono);font-size:13px;color:var(--coal-light);letter-spacing:.08em;margin-bottom:14px;display:block;}
+    .lime-mark{background:linear-gradient(to top,rgba(200,230,32,.35) 38%,transparent 38%);padding:0 4px;margin:0 -4px;}
+    h2{font-size:clamp(28px,3.5vw,46px);font-weight:700;line-height:1.15;letter-spacing:-.01em;}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-main);font-weight:600;font-size:15px;padding:14px 32px;border:none;cursor:pointer;transition:all .3s ease;text-decoration:none;}
+    .btn-primary{background:var(--lime);color:var(--coal);}
+    .btn-primary:hover{background:var(--lime-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,230,32,.3);}
+    .btn-outline{background:transparent;color:var(--coal);border:1.5px solid rgba(42,42,38,.22);}
+    .btn-outline:hover{background:var(--coal);color:var(--chalk);border-color:var(--coal);}
+    .btn-cta{background:var(--lime);color:var(--coal);font-size:16px;padding:16px 40px;font-weight:700;}
+    .btn-cta:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,230,32,.25);}
+    .btn-ghost{background:transparent;color:var(--chalk);border:1.5px solid rgba(247,247,243,.18);}
+    .btn-ghost:hover{border-color:var(--chalk);background:rgba(247,247,243,.06);}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 var(--side-pad);height:72px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .35s;background:rgba(247,247,243,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(42,42,38,.07);}
+    .nav.scrolled{box-shadow:0 1px 0 rgba(42,42,38,.10);}
+    .nav-brand{font-weight:800;font-size:15px;letter-spacing:.07em;}
+    .nav-center{display:flex;gap:36px;}
+    .nav-center a{font-family:var(--font-mono);font-size:14px;color:var(--coal-mid);transition:color .2s;position:relative;}
+    .nav-center a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--lime);transition:width .3s;}
+    .nav-center a:hover{color:var(--coal);}
+    .nav-center a:hover::after{width:100%;}
+    .nav-cta .btn{padding:10px 24px;font-size:13px;}
+    .hamburger{display:none;width:28px;height:18px;flex-direction:column;justify-content:space-between;background:none;border:none;padding:0;}
+    .hamburger span{display:block;height:2px;width:100%;background:var(--coal);transition:all .3s;}
+    .mobile-menu{position:fixed;inset:0;background:var(--coal);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;pointer-events:none;transition:opacity .35s;}
+    .mobile-menu.open{opacity:1;pointer-events:all;}
+    .mobile-menu a{font-family:var(--font-mono);font-size:22px;color:var(--chalk);transition:color .2s;}
+    .mobile-menu a:hover{color:var(--lime);}
+    .close-btn{position:absolute;top:22px;right:var(--side-pad);background:none;border:none;color:var(--chalk);font-size:36px;line-height:1;cursor:pointer;}
+
+    /* HERO */
+    .hero{height:clamp(580px,88vh,820px);display:grid;grid-template-columns:55% 45%;position:relative;}
+    .hero-text{display:flex;flex-direction:column;justify-content:center;padding:120px var(--side-pad) 80px;padding-right:clamp(32px,4vw,72px);}
+    .hero-tag{font-family:var(--font-mono);font-size:14px;color:var(--coal-light);margin-bottom:28px;letter-spacing:.04em;}
+    .hero h1{font-size:clamp(42px,5.5vw,78px);font-weight:800;line-height:1.06;margin-bottom:28px;letter-spacing:-.025em;}
+    .hero-subtitle{font-size:clamp(16px,1.3vw,18px);color:var(--coal-mid);line-height:1.65;max-width:460px;margin-bottom:44px;}
+    .hero-buttons{display:flex;gap:16px;flex-wrap:wrap;}
+    .cursor-blink{display:inline-block;width:3px;height:.75em;background:var(--lime);margin-left:6px;animation:blink 1s step-end infinite;vertical-align:baseline;position:relative;top:3px;}
+    .hero-photo{background:var(--coal);position:relative;overflow:hidden;}
+    .hero-photo::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--lime);z-index:2;}
+    .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 8%;}
+    .hero-photo::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(42,42,38,.65),transparent);z-index:1;}
+    .hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;font-family:var(--font-mono);font-size:12px;color:rgba(200,230,32,.7);letter-spacing:.12em;animation:float-down 2s ease-in-out infinite;}
+
+    /* MARQUEE */
+    .marquee{background:var(--coal);padding:14px 0;overflow:hidden;}
+    .marquee-track{display:flex;animation:marquee-scroll 28s linear infinite;white-space:nowrap;}
+    .marquee-content{display:flex;align-items:center;gap:20px;padding:0 10px;flex-shrink:0;}
+    .marquee-content span{font-family:var(--font-mono);font-size:12px;color:var(--lime);letter-spacing:.14em;text-transform:uppercase;}
+    .marquee-dot{width:4px;height:4px;background:var(--lime);border-radius:50%;opacity:.4;flex-shrink:0;}
+
+    /* NUMBERS — dark */
+    .numbers{padding:var(--section-pad) 0;background:var(--coal);}
+    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;position:relative;}
+    .stat-item{position:relative;}
+    .stat-item:not(:last-child)::after{content:'';position:absolute;right:-20px;top:15%;height:70%;width:1px;background:rgba(247,247,243,.08);}
+    .stat-number{font-family:var(--font-mono);font-size:clamp(40px,5vw,64px);font-weight:700;line-height:1;margin-bottom:12px;}
+    .stat-plus{color:var(--lime);}
+    .stat-label{font-size:15px;color:rgba(247,247,243,.5);line-height:1.45;}
+
+    /* SERVICES */
+    .services{padding:var(--section-pad) 0;background-image:radial-gradient(circle,rgba(42,42,38,.032) 1px,transparent 1px);background-size:28px 28px;}
+    .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:52px;}
+    .service-card{background:rgba(255,255,255,.88);backdrop-filter:blur(8px);padding:40px 32px 32px;position:relative;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s;border:1px solid rgba(42,42,38,.05);display:flex;flex-direction:column;}
+    .service-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--lime);transform:scaleY(0);transform-origin:bottom;transition:transform .4s cubic-bezier(.16,1,.3,1);}
+    .service-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(42,42,38,.08);}
+    .service-card:hover::before{transform:scaleY(1);}
+    .service-index{font-family:var(--font-mono);font-size:13px;color:var(--lime-dark);margin-bottom:24px;display:block;}
+    .service-card h3{font-size:20px;font-weight:700;margin-bottom:14px;}
+    .service-card p{font-size:14px;color:var(--coal-mid);line-height:1.65;flex:1;}
+    .service-arrow{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:13px;color:var(--coal-mid);margin-top:28px;transition:gap .3s,color .3s;}
+    .service-card:hover .service-arrow{gap:14px;color:var(--lime-dark);}
+
+    /* ABOUT */
+    .about{padding:var(--section-pad) 0;}
+    .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:40px;}
+    .about-highlight{font-size:clamp(19px,2vw,25px);font-weight:600;line-height:1.5;padding-left:24px;border-left:3px solid var(--lime);margin-bottom:24px;}
+    .about-text{font-size:16px;color:var(--coal-mid);line-height:1.72;}
+    .about-text p+p{margin-top:16px;}
+    .about-badge{font-family:var(--font-mono);font-size:13px;color:var(--coal);background:var(--lime-glow);padding:14px 18px;margin-top:20px;border-left:2px solid var(--lime);line-height:1.55;}
+    /* Photo grid (right col) */
+    .about-gallery{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+    .about-gphoto{overflow:hidden;height:210px;position:relative;}
+    .about-gphoto.wide{grid-column:1/-1;height:190px;}
+    .about-gphoto img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+    .about-gphoto:hover img{transform:scale(1.04);}
+
+    /* EVENTS STRIP */
+    .events{background:var(--coal);padding:var(--section-pad) 0;}
+    .events-head{margin-bottom:40px;}
+    .events-head .section-label{color:rgba(200,230,32,.55);}
+    .events-head h2{color:var(--chalk);}
+    .events-head p{font-size:15px;color:rgba(247,247,243,.45);margin-top:10px;font-family:var(--font-mono);}
+    .events-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.3fr;grid-template-rows:340px;gap:4px;max-width:var(--container);margin:0 auto;padding:0 var(--side-pad);}
+    .event-photo{position:relative;overflow:hidden;}
+    .event-photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+    .event-photo:hover img{transform:scale(1.04);}
+    .event-label{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(to top,rgba(0,0,0,.72),transparent);font-family:var(--font-mono);font-size:11px;color:rgba(247,247,243,.65);letter-spacing:.07em;opacity:0;transition:opacity .3s;}
+    .event-photo:hover .event-label{opacity:1;}
+
+    /* BLOG */
+    .blog{padding:var(--section-pad) 0;background:var(--chalk-dim);}
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;}
+    .blog-card{background:#fff;padding:32px;display:flex;flex-direction:column;border:1px solid rgba(42,42,38,.04);transition:transform .35s,box-shadow .35s;}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(42,42,38,.06);}
+    .blog-date{font-family:var(--font-mono);font-size:13px;color:var(--coal-light);margin-bottom:16px;}
+    .blog-card h3{font-size:18px;font-weight:700;line-height:1.35;margin-bottom:12px;}
+    .blog-card p{font-size:14px;color:var(--coal-mid);line-height:1.6;flex:1;}
+    .blog-link{font-family:var(--font-mono);font-size:13px;color:var(--coal-mid);display:inline-flex;align-items:center;gap:6px;margin-top:20px;transition:gap .3s,color .3s;}
+    .blog-card:hover .blog-link{gap:12px;color:var(--lime-dark);}
+    .blog-all{text-align:center;margin-top:52px;}
+
+    /* CTA */
+    .cta-section{background:var(--coal);padding:var(--section-pad) var(--side-pad);text-align:center;position:relative;overflow:hidden;}
+    .cta-section::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(200,230,32,.07) 0%,transparent 70%);pointer-events:none;}
+    .cta-section h2{color:var(--chalk);font-size:clamp(30px,4vw,50px);font-weight:800;margin-bottom:20px;line-height:1.15;position:relative;}
+    .cta-section > div > p{color:var(--coal-light);font-size:17px;max-width:500px;margin:0 auto 44px;line-height:1.6;position:relative;}
+    .cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
+
+    /* FOOTER */
+    .footer{background:var(--coal);padding:32px var(--side-pad);border-top:1px solid rgba(200,230,32,.08);}
+    .footer-inner{max-width:var(--container);margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-size:13px;color:var(--coal-light);font-weight:700;letter-spacing:.06em;}
+    .footer-socials{display:flex;gap:28px;}
+    .footer-socials a{color:var(--coal-light);transition:color .2s;display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:13px;}
+    .footer-socials a:hover{color:var(--lime);}
+    .footer-copy{font-size:12px;color:rgba(247,247,243,.22);font-family:var(--font-mono);}
+
+    /* ANIMATIONS */
+    @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+    @keyframes marquee-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    @keyframes float-down{0%,100%{transform:translateX(-50%) translateY(0);opacity:.7}50%{transform:translateX(-50%) translateY(7px);opacity:1}}
+    .reveal-up{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+    .reveal-up.visible{opacity:1;transform:translateY(0);}
+
+    /* RESPONSIVE */
+    @media(max-width:1200px){.services-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:1024px){
+      .hero{grid-template-columns:1fr;min-height:auto;}
+      .hero-photo{height:55vh;order:-1;}
+      .hero-photo::before{display:none;}
+      .hero-text{padding:48px var(--side-pad) 64px;}
+      .about-inner{grid-template-columns:1fr;gap:40px;}
+      .events-grid{grid-template-columns:1fr 1fr;grid-template-rows:220px 220px;}
+    }
+    @media(max-width:768px){
+      .nav-center,.nav-cta{display:none;}
+      .hamburger{display:flex;}
+      .nav{box-shadow:0 1px 0 rgba(42,42,38,.08);}
+      .hero-photo{height:46vh;}
+      .hero h1{font-size:clamp(34px,9vw,50px)!important;}
+      .stats-grid{grid-template-columns:1fr;gap:36px;}
+      .stat-item::after{display:none;}
+      .services-grid{grid-template-columns:1fr;}
+      .events-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px;}
+      .about-gallery{grid-template-columns:1fr 1fr;}
+      .blog-grid{grid-template-columns:1fr;}
+      .footer-inner{flex-direction:column;gap:20px;text-align:center;}
+      .hero-scroll{display:none;}
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+
+    /* ── HOOKS ── */
+    function useScrollReveal(threshold) {
+      const ref = React.useRef(null);
+      const [visible, setVisible] = React.useState(false);
+      React.useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+          ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+          { threshold: threshold || 0.12 }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+      }, []);
+      return [ref, visible];
+    }
+
+    function useCountUp(target, active, duration = 2000) {
+      const [val, setVal] = React.useState(0);
+      React.useEffect(() => {
+        if (!active) return;
+        let start = null;
+        const step = (ts) => {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / duration, 1);
+          setVal(Math.floor((1 - Math.pow(1 - p, 3)) * target));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }, [active, target, duration]);
+      return val;
+    }
+
+    function smoothTo(id) {
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+    }
+
+    /* ── NAV ── */
+    function Nav() {
+      const [scrolled, setScrolled] = React.useState(false);
+      const [open, setOpen] = React.useState(false);
+      React.useEffect(() => {
+        const fn = () => setScrolled(window.scrollY > 50);
+        window.addEventListener('scroll', fn, { passive: true });
+        return () => window.removeEventListener('scroll', fn);
+      }, []);
+      React.useEffect(() => { document.body.style.overflow = open ? 'hidden' : ''; }, [open]);
+      const go = (e, id) => { e.preventDefault(); setOpen(false); smoothTo(id); };
+
+      return <>
+        <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
+          <a href="#" className="nav-brand" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>НЕ ПРОСТО МАКСИМ</a>
+          <div className="nav-center">
+            <a href="#about" onClick={e => go(e, 'about')}>Обо мне</a>
+            <a href="#services" onClick={e => go(e, 'services')}>Услуги</a>
+            <a href="#blog" onClick={e => go(e, 'blog')}>Блог</a>
+          </div>
+          <div className="nav-cta">
+            <a href="#cta" className="btn btn-primary" onClick={e => go(e, 'cta')}>Записаться</a>
+          </div>
+          <button className="hamburger" onClick={() => setOpen(true)} aria-label="Открыть меню">
+            <span/><span/><span/>
+          </button>
+        </nav>
+        <div className={`mobile-menu${open ? ' open' : ''}`} role="dialog" aria-modal="true">
+          <button className="close-btn" onClick={() => setOpen(false)} aria-label="Закрыть">×</button>
+          <a href="#about" onClick={e => go(e, 'about')}>Обо мне</a>
+          <a href="#services" onClick={e => go(e, 'services')}>Услуги</a>
+          <a href="#blog" onClick={e => go(e, 'blog')}>Блог</a>
+          <a href="#cta" className="btn btn-primary" onClick={e => go(e, 'cta')}>Записаться</a>
+        </div>
+      </>;
+    }
+
+    /* ── HERO ── */
+    function Hero() {
+      return (
+        <section className="hero">
+          <div className="hero-text">
+            <span className="hero-tag">// AI_НАСТАВНИК · M.AI.N COMMUNITY</span>
+            <h1 style={{ fontSize: '70px' }}>
+              Освой ИИ —<br/>
+              будущее станет <span className="lime-mark">твоим</span>
+              <span className="cursor-blink"/>
+            </h1>
+            <p className="hero-subtitle">
+              Воркшопы по&nbsp;ChatGPT и&nbsp;нейросетям, личное наставничество и&nbsp;корпоративное обучение для&nbsp;тех, кто хочет использовать ИИ на&nbsp;полную мощность
+            </p>
+            <div className="hero-buttons">
+              <a href="#cta" className="btn btn-primary" onClick={e => { e.preventDefault(); smoothTo('cta'); }}>Записаться →</a>
+              <a href="#services" className="btn btn-outline" onClick={e => { e.preventDefault(); smoothTo('services'); }}>Узнать больше</a>
+            </div>
+          </div>
+          <div className="hero-photo">
+            <img src="uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png" alt="Максим Леонов — AI-наставник, эксперт по искусственному интеллекту" loading="eager"/>
+            <span className="hero-scroll">↓ scroll</span>
+          </div>
+        </section>
+      );
+    }
+
+    /* ── MARQUEE ── */
+    function Marquee() {
+      const items = ['НЕЙРОСЕТИ','АВТОМАТИЗАЦИЯ','ПРОМПТИНГ','CHATGPT','CLAUDE','MIDJOURNEY','AI-АГЕНТЫ','СТРАТЕГИЯ','M.AI.N','ИИ ДЛЯ БИЗНЕСА'];
+      const dots = items.map((item, i) =>
+        <React.Fragment key={i}>
+          <span>{item}</span>
+          <div className="marquee-dot"/>
+        </React.Fragment>
+      );
+      return (
+        <div className="marquee" aria-hidden="true">
+          <div className="marquee-track">
+            <div className="marquee-content">{dots}</div>
+            <div className="marquee-content">{dots}</div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ── NUMBERS ── */
+    function StatItem({ stat, visible, delay }) {
+      const count = useCountUp(stat.target, visible, 2200);
+      const formatted = stat.target >= 1000 ? new Intl.NumberFormat('ru-RU').format(count) : String(count);
+      return (
+        <div className={`stat-item reveal-up${visible ? ' visible' : ''}`} style={{ transitionDelay: delay + 'ms' }}>
+          <div className="stat-number">
+            <span style={{ color: '#c8e620' }}>{formatted}</span>
+            <span className="stat-plus">{stat.suffix}</span>
+          </div>
+          <div className="stat-label">{stat.label}</div>
+        </div>
+      );
+    }
+
+    function Numbers() {
+      const [ref, visible] = useScrollReveal(0.25);
+      const stats = [
+        { target: 40000, suffix: '+', label: 'аудитория в соц. сетях' },
+        { target: 350,   suffix: '+', label: 'учеников уже работают с ИИ' },
+        { target: 2500,  suffix: '+', label: 'участников сообщества M.AI.N' },
+      ];
+      return (
+        <section className="numbers" ref={ref} aria-label="Ключевые показатели">
+          <div className="container">
+            <div className="stats-grid">
+              {stats.map((s, i) => <StatItem key={i} stat={s} visible={visible} delay={i * 180}/>)}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ── SERVICES ── */
+    function Services() {
+      const [ref, visible] = useScrollReveal();
+      const cards = [
+        { index: '01', title: 'Воркшопы', desc: 'Групповые интенсивы с практикой. Прокачиваем промптинг, автоматизацию и работу с ИИ-инструментами на реальных задачах.' },
+        { index: '02', title: 'Наставничество 1:1', desc: 'Личная работа. Разрабатываем персональную стратегию внедрения ИИ под ваши цели, специфику и темп.' },
+        { index: '03', title: 'Корп. обучение', desc: 'Программы под ключ для команд. Маркетинг, продажи, продукт — адаптируем под процессы конкретной компании.' },
+        { index: '04', title: 'Внедрение ИИ для бизнеса', desc: 'Аудит процессов, подбор инструментов и сопровождение внедрения ИИ — от стратегии до результата.' },
+      ];
+      return (
+        <section className="services" id="services" ref={ref}>
+          <div className="container">
+            <span className="section-label">// форматы_работы</span>
+            <h2>Форматы обучения ИИ</h2>
+            <div className="services-grid">
+              {cards.map((c, i) => (
+                <article key={i} className={`service-card reveal-up${visible ? ' visible' : ''}`} style={{ transitionDelay: i * 130 + 'ms' }}>
+                  <span className="service-index">[{c.index}]</span>
+                  <h3>{c.title}</h3>
+                  <p>{c.desc}</p>
+                  <span className="service-arrow">подробнее →</span>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ── ABOUT ── */
+    function About() {
+      const [ref, visible] = useScrollReveal();
+      return (
+        <section className="about" id="about" ref={ref}>
+          <div className="container">
+            <span className="section-label">// обо_мне</span>
+            <h2 style={{ marginBottom: 40 }}>AI-наставник Максим Леонов</h2>
+            <div className="about-inner">
+
+              {/* Left: text */}
+              <div className={`reveal-up${visible ? ' visible' : ''}`}>
+                <div className="about-highlight">
+                  Помогаю людям и&nbsp;бизнесу находить общий язык с&nbsp;искусственным интеллектом. Без лишнего шума — только то, что работает.
+                </div>
+                <div className="about-text" style={{ marginTop: 24 }}>
+                  <p>
+                    Не просто рассказываю про инструменты — учу думать вместе с&nbsp;ИИ, выстраивать процессы и&nbsp;получать реальные результаты. Мой подход: практика, стратегия и&nbsp;индивидуальная работа с&nbsp;каждым.
+                  </p>
+                  <p>
+                    Провожу воркшопы по&nbsp;ChatGPT, Claude и&nbsp;другим нейросетям, веду личное наставничество и&nbsp;корпоративные программы по&nbsp;внедрению ИИ.
+                  </p>
+                  <div className="about-badge">
+                    Основатель <strong>Core M.AI.N community</strong> в&nbsp;Республике Беларусь — крупнейшего AI-сообщества в&nbsp;стране. Более 2&nbsp;500&nbsp;участников.
+                  </div>
+                  <p style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                    <a href="https://t.me/maincomby" target="_blank" rel="noopener" className="btn btn-outline">Присоединяйся →</a>
+                    <a href="#cta" className="btn btn-primary" onClick={e => { e.preventDefault(); smoothTo('cta'); }}>Написать мне</a>
+                  </p>
+                </div>
+              </div>
+
+              {/* Right: photo grid */}
+              <div className={`about-gallery reveal-up${visible ? ' visible' : ''}`} style={{ transitionDelay: '180ms' }}>
+                <div className="about-gphoto">
+                  <img src="uploads/1-134.jpg" alt="Максим Леонов — индивидуальная консультация по внедрению ИИ" loading="lazy"/>
+                </div>
+                <div className="about-gphoto">
+                  <img src="uploads/v-4.JPG" alt="Максим Леонов ведёт воркшоп по нейросетям и ChatGPT" loading="lazy"/>
+                </div>
+                <div className="about-gphoto wide">
+                  <img src="uploads/_MG_0214.jpg" alt="Максим Леонов на конференции по искусственному интеллекту — панельная дискуссия" loading="lazy"/>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ── EVENTS STRIP ── */
+    function EventsStrip() {
+      const [ref, visible] = useScrollReveal();
+      const photos = [
+        { src: 'uploads/h-1.JPG',                          label: 'Воркшоп M.AI.N community' },
+        { src: 'uploads/photo_2025-05-06_16-17-27.jpg',    label: 'Корпоративное обучение ИИ' },
+        { src: 'uploads/IMG_0389.PNG',                     label: 'Практика: работа с ChatGPT' },
+        { src: 'uploads/2026-03-18 20-17-22.jpg',          label: 'Выступление на конференции' },
+      ];
+      const alts = [
+        'Участники воркшопа по ИИ — групповое фото M.AI.N community',
+        'Корпоративное обучение ChatGPT — команда после тренинга по нейросетям',
+        'Практическое обучение ИИ — участники воркшопа работают с нейросетями',
+        'Максим Леонов выступает с лекцией об искусственном интеллекте',
+      ];
+      return (
+        <section className="events" ref={ref} aria-label="Фото с мероприятий">
+          <div className="container">
+            <div className={`events-head reveal-up${visible ? ' visible' : ''}`}>
+              <span className="section-label">// мероприятия</span>
+              <h2>Живые встречи и ивенты</h2>
+              <p>350+ человек уже прошли практику на воркшопах и конференциях по ИИ</p>
+            </div>
+          </div>
+          <div className={`events-grid reveal-up${visible ? ' visible' : ''}`} style={{ transitionDelay: '160ms' }}>
+            {photos.map((p, i) => (
+              <div key={i} className="event-photo">
+                <img src={p.src} alt={alts[i]} loading="lazy"/>
+                <div className="event-label">{p.label}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ── BLOG ── */
+    function Blog() {
+      const [ref, visible] = useScrollReveal();
+      const posts = [
+        { date: '28.05.2026', title: '100 команд для Claude, которые в 3 раза увеличат эффективность', desc: 'Готовые промпты под реальные рабочие задачи — сохрани, чтобы не потерять.' },
+        { date: '14.05.2026', title: '7 нейросетей, о которых все молчат', desc: 'Инструменты вне радара, которые уже решают задачи лучше ChatGPT.' },
+        { date: '02.05.2026', title: 'PowerPoint — всё. Что используют вместо него с ИИ', desc: 'Разбираем AI-инструменты, которые полностью закрывают задачу презентаций.' },
+      ];
+      return (
+        <section className="blog" id="blog" ref={ref}>
+          <div className="container">
+            <span className="section-label">// блог_об_ии</span>
+            <h2>Блог об ИИ и нейросетях</h2>
+            <div className="blog-grid">
+              {posts.map((p, i) => (
+                <article key={i} className={`blog-card reveal-up${visible ? ' visible' : ''}`} style={{ transitionDelay: i * 130 + 'ms' }}>
+                  <div className="blog-date">{p.date}</div>
+                  <h3>{p.title}</h3>
+                  <p>{p.desc}</p>
+                  <a href="https://t.me/neprostonewsai" target="_blank" rel="noopener" className="blog-link">читать →</a>
+                </article>
+              ))}
+            </div>
+            <div className="blog-all">
+              <a href="https://t.me/neprostonewsai" target="_blank" rel="noopener" className="btn btn-outline">Все материалы в Telegram</a>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ── CTA ── */
+    function CTASection() {
+      const [ref, visible] = useScrollReveal();
+      return (
+        <section className="cta-section" id="cta" ref={ref}>
+          <div className={`reveal-up${visible ? ' visible' : ''}`}>
+            <h2>Готовы начать<br/>работать с&nbsp;ИИ?</h2>
+            <p>Запишитесь на бесплатную консультацию — обсудим, как искусственный интеллект поможет именно вам</p>
+            <div className="cta-buttons">
+              <a href="https://t.me/leonovmax" target="_blank" rel="noopener" className="btn btn-cta">Написать в Telegram</a>
+              <a href="https://instagram.com/neprostomaksim" target="_blank" rel="noopener" className="btn btn-ghost">Instagram @neprostomaksim</a>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ── FOOTER ── */
+    function Footer() {
+      const IgIcon = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>;
+      const TgIcon = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>;
+      return (
+        <footer className="footer">
+          <div className="footer-inner">
+            <span className="footer-brand">НЕ ПРОСТО МАКСИМ</span>
+            <div className="footer-socials">
+              <a href="https://instagram.com/neprostomaksim" target="_blank" rel="noopener" aria-label="Instagram Максима Леонова"><IgIcon/> Instagram</a>
+              <a href="https://t.me/neprostonewsai" target="_blank" rel="noopener" aria-label="Telegram-канал об ИИ"><TgIcon/> Telegram</a>
+            </div>
+            <span className="footer-copy">© 2026 Максим Леонов</span>
+          </div>
+        </footer>
+      );
+    }
+
+    /* ── APP ── */
+    function App() {
+      return (
+        <>
+          <Nav/>
+          <main>
+            <Hero/>
+            <Marquee/>
+            <Numbers/>
+            <Services/>
+            <About/>
+            <EventsStrip/>
+            <Blog/>
+            <CTASection/>
+          </main>
+          <Footer/>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>

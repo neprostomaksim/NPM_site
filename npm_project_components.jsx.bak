@@ -1,0 +1,332 @@
+﻿/* ═══ HOOKS ═══ */
+function useScrollReveal(threshold) {
+  const ref = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: threshold || 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function useCountUp(target, active, duration) {
+  const dur = duration || 2000;
+  const [val, setVal] = React.useState(0);
+  React.useEffect(() => {
+    if (!active) return;
+    let start = null;
+    const step = function (ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      setVal(Math.floor(eased * target));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [active, target, dur]);
+  return val;
+}
+
+function smoothScrollTo(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    var top = el.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+}
+
+/* ═══ NAV ═══ */
+function Nav() {
+  const [scrolled, setScrolled] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    var onScroll = function () { setScrolled(window.scrollY > 50); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return function () { window.removeEventListener('scroll', onScroll); };
+  }, []);
+
+  React.useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return function () { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  var handleClick = function (e, id) {
+    e.preventDefault();
+    setMenuOpen(false);
+    smoothScrollTo(id);
+  };
+
+  return React.createElement(React.Fragment, null,
+    React.createElement('nav', { className: 'nav' + (scrolled ? ' scrolled' : '') },
+      React.createElement('a', { href: '#', className: 'nav-brand', onClick: function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); } }, 'МАКСИМ ЛЕОНОВ'),
+      React.createElement('div', { className: 'nav-center' },
+        React.createElement('a', { href: '#about', onClick: function(e){ handleClick(e,'about'); } }, 'Обо мне'),
+        React.createElement('a', { href: '#services', onClick: function(e){ handleClick(e,'services'); } }, 'Услуги'),
+        React.createElement('a', { href: '#blog', onClick: function(e){ handleClick(e,'blog'); } }, 'Блог')
+      ),
+      React.createElement('div', { className: 'nav-cta' },
+        React.createElement('a', { href: '#cta', className: 'btn btn-primary', onClick: function(e){ handleClick(e,'cta'); } }, 'Записаться')
+      ),
+      React.createElement('button', { className: 'hamburger', onClick: function(){ setMenuOpen(true); }, 'aria-label': 'Меню' },
+        React.createElement('span'), React.createElement('span'), React.createElement('span')
+      )
+    ),
+    React.createElement('div', { className: 'mobile-menu' + (menuOpen ? ' open' : '') },
+      React.createElement('button', { className: 'close-btn', onClick: function(){ setMenuOpen(false); } }, '×'),
+      React.createElement('a', { href: '#about', onClick: function(e){ handleClick(e,'about'); } }, 'Обо мне'),
+      React.createElement('a', { href: '#services', onClick: function(e){ handleClick(e,'services'); } }, 'Услуги'),
+      React.createElement('a', { href: '#blog', onClick: function(e){ handleClick(e,'blog'); } }, 'Блог'),
+      React.createElement('a', { href: '#cta', className: 'btn btn-primary', onClick: function(e){ handleClick(e,'cta'); } }, 'Записаться')
+    )
+  );
+}
+
+/* ═══ HERO ═══ */
+function Hero() {
+  return React.createElement('section', { className: 'hero' },
+    React.createElement('div', { className: 'hero-text' },
+      React.createElement('span', { className: 'hero-tag' }, '// AI_НАСТАВНИК'),
+      React.createElement('h1', null,
+        'Научу думать', React.createElement('br'),
+        'вместе ',
+        React.createElement('span', { className: 'lime-mark' }, 'с\u00a0ИИ'),
+        React.createElement('span', { className: 'cursor-blink' })
+      ),
+      React.createElement('p', { className: 'hero-subtitle' },
+        'Воркшопы, наставничество и\u00a0корпоративное обучение для\u00a0тех, кто хочет использовать ИИ\u00a0на\u00a0полную'
+      ),
+      React.createElement('div', { className: 'hero-buttons' },
+        React.createElement('a', { href: '#cta', className: 'btn btn-primary', onClick: function(e){ e.preventDefault(); smoothScrollTo('cta'); } }, 'Записаться →'),
+        React.createElement('a', { href: '#services', className: 'btn btn-outline', onClick: function(e){ e.preventDefault(); smoothScrollTo('services'); } }, 'Узнать больше')
+      )
+    ),
+    React.createElement('div', { className: 'hero-photo-panel' },
+      React.createElement('img', {
+        src: 'uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png',
+        alt: 'Максим Леонов',
+        loading: 'eager'
+      }),
+      React.createElement('span', { className: 'hero-scroll-hint' }, '↓ scroll')
+    )
+  );
+}
+
+/* ═══ MARQUEE ═══ */
+function MarqueeTicker() {
+  var items = ['НЕЙРОСЕТИ', 'АВТОМАТИЗАЦИЯ', 'ПРОМПТИНГ', 'CHATGPT', 'CLAUDE', 'MIDJOURNEY', 'СТРАТЕГИЯ', 'ОБУЧЕНИЕ', 'БИЗНЕС', 'AI-АГЕНТЫ'];
+  var content = items.map(function(item, i) {
+    return React.createElement(React.Fragment, { key: i },
+      React.createElement('span', null, item),
+      React.createElement('div', { className: 'marquee-dot' })
+    );
+  });
+  return React.createElement('div', { className: 'marquee' },
+    React.createElement('div', { className: 'marquee-track' },
+      React.createElement('div', { className: 'marquee-content' }, content),
+      React.createElement('div', { className: 'marquee-content', 'aria-hidden': 'true' }, content)
+    )
+  );
+}
+
+/* ═══ STAT ITEM ═══ */
+function StatItem(props) {
+  var stat = props.stat;
+  var count = useCountUp(stat.target, props.visible, 2200);
+  var formatted = stat.target >= 1000
+    ? new Intl.NumberFormat('ru-RU').format(count).replace(/\u00a0/g, ' ').replace(/\s/g, ' ')
+    : count.toString();
+
+  return React.createElement('div', {
+    className: 'stat-item reveal-up' + (props.visible ? ' visible' : ''),
+    style: { transitionDelay: props.delay + 'ms' }
+  },
+    React.createElement('div', { className: 'stat-number' },
+      formatted,
+      React.createElement('span', { className: 'stat-plus' }, stat.suffix)
+    ),
+    React.createElement('div', { className: 'stat-label' }, stat.label)
+  );
+}
+
+/* ═══ NUMBERS ═══ */
+function Numbers() {
+  var ref_vis = useScrollReveal(0.25);
+  var ref = ref_vis[0], visible = ref_vis[1];
+  var stats = [
+    { target: 27600, suffix: '+', label: 'подписчиков в Instagram' },
+    { target: 300, suffix: '+', label: 'учеников уже используют ИИ в работе' },
+    { target: 2500, suffix: '+', label: 'участников сообщества M.AI.N' }
+  ];
+  return React.createElement('section', { className: 'numbers', ref: ref },
+    React.createElement('div', { className: 'container' },
+      React.createElement('div', { className: 'stats-grid' },
+        stats.map(function(s, i) {
+          return React.createElement(StatItem, { key: i, stat: s, visible: visible, delay: i * 180 });
+        })
+      )
+    )
+  );
+}
+
+/* ═══ SERVICES ═══ */
+function Services() {
+  var ref_vis = useScrollReveal();
+  var ref = ref_vis[0], visible = ref_vis[1];
+  var cards = [
+    { index: '01', title: 'Воркшопы', desc: 'Групповые интенсивы с практикой. Учимся работать с ИИ на реальных задачах\u00a0— от промптинга до автоматизации процессов.' },
+    { index: '02', title: 'Наставничество', desc: 'Личная работа 1-на-1. Разрабатываем стратегию внедрения ИИ под ваши задачи, цели и специфику бизнеса.' },
+    { index: '03', title: 'Корп. обучение', desc: 'Программы для команд. Адаптируем обучение под процессы компании\u00a0— от маркетинга до разработки продукта.' }
+  ];
+  return React.createElement('section', { className: 'services', id: 'services', ref: ref },
+    React.createElement('div', { className: 'container' },
+      React.createElement('span', { className: 'section-label' }, '// форматы_обучения'),
+      React.createElement('h2', null, 'Выберите свой формат'),
+      React.createElement('div', { className: 'services-grid' },
+        cards.map(function(c, i) {
+          return React.createElement('div', {
+            key: i,
+            className: 'service-card reveal-up' + (visible ? ' visible' : ''),
+            style: { transitionDelay: (i * 130) + 'ms' }
+          },
+            React.createElement('span', { className: 'service-index' }, '[' + c.index + ']'),
+            React.createElement('h3', null, c.title),
+            React.createElement('p', null, c.desc),
+            React.createElement('span', { className: 'service-arrow' }, 'подробнее →')
+          );
+        })
+      )
+    )
+  );
+}
+
+/* ═══ ABOUT ═══ */
+function About() {
+  var ref_vis = useScrollReveal();
+  var ref = ref_vis[0], visible = ref_vis[1];
+  return React.createElement('section', { className: 'about', id: 'about', ref: ref },
+    React.createElement('div', { className: 'container' },
+      React.createElement('span', { className: 'section-label' }, '// обо_мне'),
+      React.createElement('div', { className: 'about-inner' },
+        React.createElement('div', {
+          className: 'about-highlight reveal-up' + (visible ? ' visible' : '')
+        },
+          'Я\u00a0— Максим Леонов, AI-наставник. Помогаю людям и\u00a0бизнесу находить общий язык с\u00a0искусственным интеллектом.'
+        ),
+        React.createElement('div', {
+          className: 'about-text reveal-up' + (visible ? ' visible' : ''),
+          style: { transitionDelay: '160ms' }
+        },
+          React.createElement('p', null,
+            'Не просто показываю инструменты\u00a0— учу думать вместе с\u00a0ИИ, выстраивать процессы и\u00a0получать реальные результаты. Мой подход\u00a0— это практика, стратегия и\u00a0индивидуальная работа с\u00a0каждым.'
+          ),
+          React.createElement('div', { className: 'about-community' },
+            'Основатель Core M.AI.N community в\u00a0Республике Беларусь\u00a0— крупнейшего сообщества по\u00a0ИИ в\u00a0стране'
+          ),
+          React.createElement('p', { style: { marginTop: 32 } },
+            React.createElement('a', { href: '#', className: 'btn btn-outline' }, 'Подробнее обо мне →')
+          )
+        )
+      )
+    )
+  );
+}
+
+/* ═══ BLOG ═══ */
+function Blog() {
+  var ref_vis = useScrollReveal();
+  var ref = ref_vis[0], visible = ref_vis[1];
+  var posts = [
+    { date: '28.05.2026', title: '100 команд для Claude, которые в 3 раза увеличат эффективность', desc: 'Сохрани, чтобы не потерять: готовые промпты под реальные рабочие задачи.' },
+    { date: '14.05.2026', title: '7 нейросетей, о которых все молчат', desc: 'Инструменты вне радара, которые уже решают задачи лучше ChatGPT.' },
+    { date: '02.05.2026', title: 'PowerPoint — всё. Что используют вместо него с ИИ', desc: 'Разбираем, какие AI-инструменты полностью заменяют привычный стек презентаций.' }
+  ];
+  return React.createElement('section', { className: 'blog', id: 'blog', ref: ref },
+    React.createElement('div', { className: 'container' },
+      React.createElement('span', { className: 'section-label' }, '// блог'),
+      React.createElement('h2', null, 'Последние статьи'),
+      React.createElement('div', { className: 'blog-grid' },
+        posts.map(function(post, i) {
+          return React.createElement('a', {
+            key: i,
+            href: '#',
+            className: 'blog-card reveal-up' + (visible ? ' visible' : ''),
+            style: { transitionDelay: (i * 130) + 'ms' }
+          },
+            React.createElement('div', { className: 'blog-date' }, post.date),
+            React.createElement('h3', null, post.title),
+            React.createElement('p', null, post.desc),
+            React.createElement('span', { className: 'blog-link' }, 'читать →')
+          );
+        })
+      ),
+      React.createElement('div', { className: 'blog-all' },
+        React.createElement('a', { href: '#', className: 'btn btn-outline' }, 'Все статьи')
+      )
+    )
+  );
+}
+
+/* ═══ CTA SECTION ═══ */
+function CTASection() {
+  var ref_vis = useScrollReveal();
+  var ref = ref_vis[0], visible = ref_vis[1];
+  return React.createElement('section', { className: 'cta-section', id: 'cta', ref: ref },
+    React.createElement('div', { className: 'reveal-up' + (visible ? ' visible' : '') },
+      React.createElement('h2', null, 'Готовы начать', React.createElement('br'), 'работать с\u00a0ИИ?'),
+      React.createElement('p', null, 'Запишитесь на бесплатную консультацию\u00a0— обсудим, как ИИ может помочь именно вам'),
+      React.createElement('div', { className: 'cta-buttons' },
+        React.createElement('a', { href: '#', className: 'btn btn-dark' }, 'Записаться на консультацию'),
+        React.createElement('a', { href: 'https://t.me/neprostonewsai', target: '_blank', className: 'btn btn-ghost' }, 'Подписаться в Telegram')
+      )
+    )
+  );
+}
+
+/* ═══ FOOTER ═══ */
+function Footer() {
+  var igIcon = React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+    React.createElement('rect', { x: 2, y: 2, width: 20, height: 20, rx: 5 }),
+    React.createElement('circle', { cx: 12, cy: 12, r: 5 }),
+    React.createElement('circle', { cx: 17.5, cy: 6.5, r: 1.5 })
+  );
+  var ytIcon = React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+    React.createElement('rect', { x: 2, y: 4, width: 20, height: 16, rx: 4 }),
+    React.createElement('polygon', { points: '10 8 16 12 10 16 10 8' })
+  );
+  var tgIcon = React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+    React.createElement('line', { x1: 22, y1: 2, x2: 11, y2: 13 }),
+    React.createElement('polygon', { points: '22 2 15 22 11 13 2 9 22 2' })
+  );
+
+  return React.createElement('footer', { className: 'footer' },
+    React.createElement('div', { className: 'footer-inner' },
+      React.createElement('span', { className: 'footer-brand' }, 'МАКСИМ ЛЕОНОВ'),
+      React.createElement('div', { className: 'footer-socials' },
+        React.createElement('a', { href: 'https://instagram.com/neprostomaksim', target: '_blank', rel: 'noopener' }, igIcon, ' Instagram'),
+        React.createElement('a', { href: '#', target: '_blank', rel: 'noopener' }, ytIcon, ' YouTube'),
+        React.createElement('a', { href: 'https://t.me/neprostonewsai', target: '_blank', rel: 'noopener' }, tgIcon, ' Telegram')
+      ),
+      React.createElement('span', { className: 'footer-copy' }, '© 2026')
+    )
+  );
+}
+
+/* ═══ EXPORTS ═══ */
+Object.assign(window, {
+  Nav: Nav,
+  Hero: Hero,
+  MarqueeTicker: MarqueeTicker,
+  Numbers: Numbers,
+  Services: Services,
+  About: About,
+  Blog: Blog,
+  CTASection: CTASection,
+  Footer: Footer
+});

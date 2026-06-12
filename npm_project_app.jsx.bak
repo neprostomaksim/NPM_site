@@ -1,0 +1,17 @@
+﻿function App() {
+  return React.createElement(React.Fragment, null,
+    React.createElement(Nav),
+    React.createElement(Hero),
+    React.createElement(MarqueeTicker),
+    React.createElement(Numbers),
+    React.createElement(Services),
+    React.createElement(About),
+    React.createElement(Blog),
+    React.createElement(CTASection),
+    React.createElement(Footer)
+  );
+}
+
+const rootEl = document.getElementById('root');
+const root = ReactDOM.createRoot(rootEl);
+root.render(React.createElement(App));
