@@ -296,6 +296,7 @@ function Services() {
       index: "03",
       title: "Корп. обучение",
       desc: "Программы под ключ для команд. Маркетинг, продажи, продукт — адаптируем под процессы конкретной компании.",
+      href: "/corporate",
     },
     {
       index: "04",
@@ -318,7 +319,27 @@ function Services() {
               <span className="service-index">[{c.index}]</span>
               <h3>{c.title}</h3>
               <p>{c.desc}</p>
-              <span className="service-arrow">подробнее →</span>
+              {c.href ? (
+                <Link
+                  href={c.href}
+                  className="service-arrow"
+                  aria-label={`Подробнее: ${c.title}`}
+                >
+                  подробнее →
+                </Link>
+              ) : (
+                <a
+                  href="#cta"
+                  className="service-arrow"
+                  aria-label={`Подробнее: ${c.title}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothTo("cta");
+                  }}
+                >
+                  подробнее →
+                </a>
+              )}
             </article>
           ))}
         </div>
