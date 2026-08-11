@@ -40,7 +40,7 @@ Content site for a Russian-language personal brand (Максим Леонов, A
 **Routes** (App Router, `app/`):
 - `/` — [app/page.js](app/page.js) is a server component that queries the 3 newest posts, then hands them to [app/home-client.js](app/home-client.js).
 - `/blog` and `/blog/[slug]` — server components querying Sanity directly with GROQ.
-- `/corporate` — [app/corporate/page.js](app/corporate/page.js), the corporate-training landing page. Fully static: no Sanity, no client JS. All copy lives in plain arrays at the top of the file, the FAQ is native `<details>`, and it carries its own `Service` + `FAQPage` JSON-LD. Reached from the `[03]` card in `Services`.
+- `/corporate` and `/workshops` — [app/corporate/page.js](app/corporate/page.js) and [app/workshops/page.js](app/workshops/page.js), the two service detail pages. Both are fully static: no Sanity, no client JS. All copy lives in plain arrays at the top of each file, the FAQ is native `<details>`, and each carries its own `Service` + `FAQPage` JSON-LD. Reached from the `[03]` and `[01]` cards in `Services`. `/workshops` reuses the `.corp-*` styles wholesale and routes signups to Telegram plus `/blog` (workshop announcements are published as articles).
 - `/admin/[[...tool]]` — the Sanity Studio itself, embedded via `NextStudio` and mounted at `basePath: "/admin"` in [sanity.config.js](sanity.config.js). Editing the schema changes this route's UI.
 
 **home-client.js is the component library.** One ~640-line `"use client"` file holds every homepage section (`Nav`, `Hero`, `Marquee`, `Numbers`, `Services`, `About`, `EventsStrip`, `BlogSection`, `CTASection`, `Footer`) plus the `useScrollReveal` / `useCountUp` hooks. `Nav` and `Footer` are named-exported at the bottom and imported by both blog routes — changing either affects every page. New shared chrome belongs here or it won't be reachable from the blog pages.
@@ -57,7 +57,7 @@ Content site for a Russian-language personal brand (Максим Леонов, A
 
 Hand-written CSS in [app/globals.css](app/globals.css) — global class names (`.container`, `.btn`, `.hero`, `.blog-card`, …) and CSS custom properties on `:root` (`--chalk`, `--coal`, `--lime`, `--container`, `--section-pad`, `--side-pad`). Fonts are loaded via `next/font/google` in [app/layout.js](app/layout.js) and exposed as `--font-main` / `--font-mono`. Both declare `subsets: ["latin", "cyrillic"]` — any font added here needs the `cyrillic` subset or the Russian copy falls back to a system face.
 
-The `/corporate` page adds a self-contained `.corp-*` block at the end of `globals.css` — it carries its own mono/sans font-family assignments and its own media queries, so it must stay last in the file.
+The detail pages add a self-contained `.corp-*` block at the end of `globals.css` — shared by both `/corporate` and `/workshops`, so a change there hits both. Note `ul{list-style:none}` in the reset does **not** cover `ol`: any `<ol>` needs its own `list-style:none` or the browser markers show up next to the styled `[01]` counters. This block — it carries its own mono/sans font-family assignments and its own media queries, so it must stay last in the file.
 
 Tailwind v4 and `@tailwindcss/postcss` are installed and wired into [postcss.config.mjs](postcss.config.mjs), but `globals.css` never imports Tailwind and no utility classes are used anywhere. Follow the existing convention: extend `globals.css`, or use inline `style={{}}` objects as the blog routes do. Don't introduce Tailwind utilities without deciding to migrate.
 
