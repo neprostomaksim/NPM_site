@@ -1,5 +1,6 @@
 import { Montserrat, Anonymous_Pro } from "next/font/google";
 import "./globals.css";
+import Analytics from "@/components/Analytics";
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic"],
@@ -111,6 +112,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
+        <Analytics site="nempl.app" />
       </body>
     </html>
   );
