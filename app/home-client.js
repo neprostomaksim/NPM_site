@@ -155,7 +155,7 @@ function Hero() {
   return (
     <section className="hero">
       <div className="hero-text">
-        <span className="hero-tag">// AI_НАСТАВНИК · M.AI.N COMMUNITY</span>
+        <span className="hero-tag">// AI_НАСТАВНИК · ОБУЧЕНИЕ_ИИ</span>
         <h1 style={{ fontSize: "70px" }}>
           Освой ИИ —<br />
           будущее станет <span className="lime-mark">твоим</span>
@@ -210,7 +210,7 @@ function Marquee() {
     "MIDJOURNEY",
     "AI-АГЕНТЫ",
     "СТРАТЕГИЯ",
-    "M.AI.N",
+    "ВАЙБ-КОДИНГ",
     "ИИ ДЛЯ БИЗНЕСА",
   ];
   return (
@@ -263,7 +263,6 @@ function Numbers() {
   const stats = [
     { target: 40000, suffix: "+", label: "аудитория в соц. сетях" },
     { target: 350, suffix: "+", label: "учеников уже работают с ИИ" },
-    { target: 2500, suffix: "+", label: "участников сообщества M.AI.N" },
   ];
   return (
     <section className="numbers" ref={ref} aria-label="Ключевые показатели">
@@ -370,9 +369,6 @@ function About() {
               <p>
                 Провожу воркшопы по&nbsp;ChatGPT, Claude и&nbsp;другим нейросетям, веду личное наставничество и&nbsp;корпоративные программы по&nbsp;внедрению ИИ.
               </p>
-              <div className="about-badge">
-                Основатель <strong>Core M.AI.N community</strong> в&nbsp;Республике Беларусь — крупнейшего AI-сообщества в&nbsp;стране. Более 2&nbsp;500&nbsp;участников.
-              </div>
               <p
                 style={{
                   marginTop: 28,
@@ -381,14 +377,6 @@ function About() {
                   flexWrap: "wrap",
                 }}
               >
-                <a
-                  href="https://t.me/maincomby"
-                  target="_blank"
-                  rel="noopener"
-                  className="btn btn-outline"
-                >
-                  Присоединяйся →
-                </a>
                 <a
                   href="#cta"
                   className="btn btn-primary"
@@ -440,13 +428,13 @@ function About() {
 function EventsStrip() {
   const [ref, visible] = useScrollReveal();
   const photos = [
-    { src: "/uploads/h-1.JPG", label: "Воркшоп M.AI.N community" },
+    { src: "/uploads/h-1.JPG", label: "Воркшоп по ИИ" },
     { src: "/uploads/photo_2025-05-06_16-17-27.jpg", label: "Корпоративное обучение ИИ" },
     { src: "/uploads/IMG_0389.PNG", label: "Практика: работа с ChatGPT" },
     { src: "/uploads/2026-03-18 20-17-22.jpg", label: "Выступление на конференции" },
   ];
   const alts = [
-    "Участники воркшопа по ИИ — групповое фото M.AI.N community",
+    "Участники воркшопа по ИИ — групповое фото после тренинга",
     "Корпоративное обучение ChatGPT — команда после тренинга по нейросетям",
     "Практическое обучение ИИ — участники воркшопа работают с нейросетями",
     "Максим Леонов выступает с лекцией об искусственном интеллекте",

@@ -157,7 +157,7 @@ const gallery = [
   },
   {
     src: "/gallery/h-1.JPG",
-    caption: "Воркшоп M.AI.N community",
+    caption: "Воркшоп по ИИ",
     alt: "Групповое фото участников воркшопа по ИИ",
     wide: true,
   },

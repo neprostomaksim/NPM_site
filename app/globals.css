@@ -80,7 +80,7 @@ h2{font-size:clamp(28px,3.5vw,46px);font-weight:700;line-height:1.15;letter-spac
 
 /* NUMBERS — dark */
 .numbers{padding:var(--section-pad) 0;background:var(--coal);}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;position:relative;}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;text-align:center;position:relative;max-width:760px;margin:0 auto;}
 .stat-item{position:relative;}
 .stat-item:not(:last-child)::after{content:'';position:absolute;right:-20px;top:15%;height:70%;width:1px;background:rgba(247,247,243,.08);}
 .stat-number{font-size:clamp(40px,5vw,64px);font-weight:700;line-height:1;margin-bottom:12px;}

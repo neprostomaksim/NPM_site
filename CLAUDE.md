@@ -63,7 +63,7 @@ Tailwind v4 and `@tailwindcss/postcss` are installed and wired into [postcss.con
 
 ## SEO
 
-[app/layout.js](app/layout.js) carries the site-wide `metadata` export (OG, Twitter, canonical `https://neprostomaksim.com/`) and a hand-built `Person` JSON-LD blob injected via `dangerouslySetInnerHTML`. It hardcodes stats (40 000+ audience, 350+ students, 2500+ M.AI.N community) that also appear in `Numbers` in `home-client.js` — update both together. `/blog/[slug]` builds per-article metadata in `generateMetadata`, preferring the schema's `seoTitle`/`seoDescription` over `title`/`excerpt`.
+[app/layout.js](app/layout.js) carries the site-wide `metadata` export (OG, Twitter, canonical `https://neprostomaksim.com/`) and a hand-built `Person` JSON-LD blob injected via `dangerouslySetInnerHTML`. It hardcodes stats (40 000+ audience, 350+ students) that also appear in `Numbers` in `home-client.js` — update both together. (The M.AI.N community brand was fully scrubbed from the site — name, founder claim, community link, and its 2500+ stat — so don't reintroduce it.) `/blog/[slug]` builds per-article metadata in `generateMetadata`, preferring the schema's `seoTitle`/`seoDescription` over `title`/`excerpt`.
 
 OG/Twitter images in `layout.js` are absolute production URLs (`https://neprostomaksim.com/uploads/...`) served from [public/uploads/](public/uploads/) — they will 404 in preview against any other host, and renaming a file there silently breaks the social card.
 
