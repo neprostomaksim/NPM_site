@@ -78,6 +78,10 @@ export const post = {
             withFilename: true,
           },
         },
+        {
+          type: "table",
+          title: "Таблица",
+        },
       ],
       validation: (Rule) => Rule.required().error("Текст статьи не может быть пустым"),
     },

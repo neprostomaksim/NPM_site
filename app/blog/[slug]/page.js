@@ -131,6 +131,60 @@ const portableTextComponents = {
         </div>
       );
     },
+    table: ({ value }) => {
+      const rows = value?.rows;
+      if (!Array.isArray(rows) || rows.length === 0) return null;
+      const [head, ...body] = rows;
+      return (
+        <div style={{ margin: "32px 0", overflowX: "auto", border: "1px solid rgba(42,42,38,.1)", borderRadius: "4px" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "15px", minWidth: "480px" }}>
+            <thead>
+              <tr>
+                {(head?.cells || []).map((cell, i) => (
+                  <th
+                    key={i}
+                    style={{
+                      textAlign: "left",
+                      padding: "14px 18px",
+                      background: "var(--coal)",
+                      color: "var(--chalk)",
+                      fontFamily: "var(--font-mono), monospace",
+                      fontSize: "13px",
+                      fontWeight: 600,
+                      letterSpacing: "0.02em",
+                      borderBottom: "2px solid var(--lime)",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {cell}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {body.map((row, r) => (
+                <tr key={row?._key || r} style={{ background: r % 2 ? "var(--chalk-dim)" : "#fff" }}>
+                  {(row?.cells || []).map((cell, c) => (
+                    <td
+                      key={c}
+                      style={{
+                        padding: "13px 18px",
+                        color: "var(--coal-mid)",
+                        lineHeight: 1.6,
+                        borderBottom: "1px solid rgba(42,42,38,.08)",
+                        verticalAlign: "top",
+                      }}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
   },
   block: {
     h2: ({ children }) => (
