@@ -23,17 +23,24 @@ export const metadata = {
   authors: [{ name: "Максим Леонов" }],
   creator: "Максим Леонов",
   robots: "index, follow",
+  metadataBase: new URL("https://nempl.app"),
+  // Коды подтверждения прав в вебмастерах. Задаются через env-переменные
+  // на проде (как и Sanity ID). Если переменная не задана — тег не выводится.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
+  },
   alternates: {
-    canonical: "https://neprostomaksim.com/",
+    canonical: "/",
   },
   openGraph: {
     type: "website",
-    url: "https://neprostomaksim.com/",
+    url: "/",
     title: "Максим Леонов — AI-наставник | Обучение ИИ и ChatGPT",
     description: "Воркшопы по нейросетям, наставничество 1:1 и корпоративное обучение ИИ. 350+ учеников работают с искусственным интеллектом.",
     images: [
       {
-        url: "https://neprostomaksim.com/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png",
+        url: "/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png",
         width: 1200,
         height: 630,
         alt: "Максим Леонов AI Наставник",
@@ -46,7 +53,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Максим Леонов — AI-наставник | Обучение нейросетям",
     description: "Воркшопы по ChatGPT, наставничество 1:1 и корпоративное обучение ИИ. 40 000+ аудитория, 350+ учеников.",
-    images: ["https://neprostomaksim.com/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png"],
+    images: ["/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png"],
   },
 };
 
@@ -57,7 +64,7 @@ export default function RootLayout({ children }) {
     "name": "Максим Леонов",
     "jobTitle": "AI-наставник, эксперт по искусственному интеллекту",
     "description": "Провожу воркшопы по ChatGPT и нейросетям, личное наставничество 1:1 и корпоративное обучение ИИ.",
-    "url": "https://neprostomaksim.com",
+    "url": "https://nempl.app",
     "sameAs": [
       "https://instagram.com/neprostomaksim",
       "https://t.me/leonovmax",

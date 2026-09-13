@@ -9,6 +9,7 @@ async function getPost(slug) {
   const query = `*[_type == "post" && slug.current == $slug][0] {
     title,
     publishedAt,
+    "updatedAt": _updatedAt,
     excerpt,
     mainImage,
     body,
@@ -39,13 +40,19 @@ export async function generateMetadata({ params }) {
   const ogImage = post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : null;
 
   return {
-    title: `${seoTitle} | Блог Максима Леонова`,
+    title: `${seoTitle} | Максим Леонов`,
     description: seoDesc,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: seoTitle,
       description: seoDesc,
       type: "article",
+      url: `/blog/${slug}`,
       publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: ["Максим Леонов"],
       images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: post.title }] : [],
     },
   };
@@ -235,8 +242,37 @@ export default async function BlogPostPage({ params }) {
     : "";
   const imageUrl = post.mainImage ? urlFor(post.mainImage).width(1200).height(600).url() : null;
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.seoTitle || post.title,
+    "description": post.seoDescription || post.excerpt,
+    "image": imageUrl ? [imageUrl] : undefined,
+    "datePublished": post.publishedAt,
+    "dateModified": post.updatedAt || post.publishedAt,
+    "inLanguage": "ru-RU",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://nempl.app/blog/${slug}`,
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Максим Леонов",
+      "url": "https://nempl.app",
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Максим Леонов",
+      "url": "https://nempl.app",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <Nav />
       <article style={{ paddingTop: "120px", background: "var(--chalk)", minHeight: "90vh", paddingBottom: "100px" }}>
         <div className="container" style={{ maxWidth: "800px" }}>

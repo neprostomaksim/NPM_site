@@ -5,6 +5,16 @@ import { client, urlFor } from "../../sanity/client";
 export const metadata = {
   title: "Блог об ИИ и нейросетях | Максим Леонов",
   description: "Практические инструкции по ChatGPT, разборы кейсов, анонсы воркшопов и актуальные новости искусственного интеллекта от AI-наставника Максима Леонова.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    type: "website",
+    url: "/blog",
+    title: "Блог об ИИ и нейросетях | Максим Леонов",
+    description: "Практические инструкции по ChatGPT, разборы кейсов, анонсы воркшопов и актуальные новости искусственного интеллекта от AI-наставника Максима Леонова.",
+    locale: "ru_RU",
+  },
 };
 
 async function getPosts() {

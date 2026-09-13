@@ -18,18 +18,18 @@ export const metadata = {
     "Беларусь",
   ],
   alternates: {
-    canonical: "https://neprostomaksim.com/corporate",
+    canonical: "/corporate",
   },
   openGraph: {
     type: "website",
-    url: "https://neprostomaksim.com/corporate",
+    url: "/corporate",
     title: "Корпоративное обучение ИИ для команд | Максим Леонов",
     description:
       "Программа под каждый отдел, практика на реальных задачах компании, замер результата в цифрах и 30 дней поддержки после обучения.",
     locale: "ru_RU",
     images: [
       {
-        url: "https://neprostomaksim.com/gallery/h-1.JPG",
+        url: "/gallery/h-1.JPG",
         width: 1200,
         height: 630,
         alt: "Корпоративное обучение ИИ — воркшоп для команды",

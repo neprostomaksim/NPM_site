@@ -17,18 +17,18 @@ export const metadata = {
     "Минск",
   ],
   alternates: {
-    canonical: "https://neprostomaksim.com/workshops",
+    canonical: "/workshops",
   },
   openGraph: {
     type: "website",
-    url: "https://neprostomaksim.com/workshops",
+    url: "/workshops",
     title: "Воркшопы по ИИ — 3 часа офлайн-практики | Максим Леонов",
     description:
       "Одна тема, три часа, работа на своих задачах. Только офлайн — приходите с ноутбуком и уходите с готовым результатом.",
     locale: "ru_RU",
     images: [
       {
-        url: "https://neprostomaksim.com/gallery/h-2.JPG",
+        url: "/gallery/h-2.JPG",
         width: 1200,
         height: 630,
         alt: "Воркшоп по искусственному интеллекту — практика в группе",
