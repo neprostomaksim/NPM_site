@@ -1,5 +1,5 @@
 import { createClient } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "replace-with-your-project-id",
@@ -8,9 +8,11 @@ export const client = createClient({
   useCdn: true, // Use Edge CDN cache for fast page loads
 });
 
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 export function urlFor(source) {
   if (!source) return null;
-  return builder.image(source);
+  // auto("format"): Sanity CDN отдаёт WebP/AVIF тем браузерам, что их понимают,
+  // вместо исходного PNG (на главной это экономило ~1 МБ).
+  return builder.image(source).auto("format");
 }
