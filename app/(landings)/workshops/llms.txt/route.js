@@ -1,7 +1,7 @@
-import { site } from "../_content/config";
-import { workshops } from "../_content/workshops";
+import { site } from "@/content/workshops/config";
+import { workshops } from "@/content/workshops/schedule";
 
-import { LANDING_URL } from "../_content/config";
+import { LANDING_URL } from "@/content/workshops/config";
 
 export function GET() {
   const schedule = workshops

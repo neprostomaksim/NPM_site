@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { workshops } from "../_content/workshops";
-import { site } from "../_content/config";
 import { trackMarketingEvent } from "@/lib/landing/marketingAnalytics";
+import { getFirstTouch, getVisitorId } from "@/lib/landing/attribution";
 
-const PRIMARY_WORKSHOP_ID = "ai-agents-29-09";
+// Общая форма записи на воркшоп для всех лендингов.
+//   workshops        — список воркшопов, из которых можно выбрать
+//   defaultWorkshopId — какой выбран изначально
+//   price            — цена в BYN (для события Lead)
+//   botUrl           — запасная ссылка на бота, если API не ответил
+// Если в списке один воркшоп, поле выбора скрыто (лендинг одного события).
+// После сохранения заявки браузер уходит в Telegram по deep link из ответа API.
 
 function readCookie(name) {
   const encodedName = `${encodeURIComponent(name)}=`;
@@ -32,18 +37,19 @@ function getAttribution() {
   };
 }
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ workshops, defaultWorkshopId, price, botUrl, apiUrl = "/api/leads" }) {
   const formRef = useRef(null);
   const formStarted = useRef(false);
-  const [workshopId, setWorkshopId] = useState(PRIMARY_WORKSHOP_ID);
+  const [workshopId, setWorkshopId] = useState(defaultWorkshopId || workshops[0]?.id);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const single = workshops.length === 1;
 
   const workshop = useMemo(
     () => workshops.find((item) => item.id === workshopId) || workshops[0],
-    [workshopId]
+    [workshopId, workshops]
   );
 
   useEffect(() => {
@@ -59,17 +65,19 @@ export default function RegistrationForm() {
     };
     window.addEventListener("workshop:choose", selectWorkshop);
     return () => window.removeEventListener("workshop:choose", selectWorkshop);
-  }, []);
+  }, [workshops]);
 
   useEffect(() => {
     if (!formRef.current || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
-      trackMarketingEvent("form_viewed", { form_id: "workshop_registration" });
+      trackMarketingEvent("form_viewed", { form_id: "workshop_registration", workshop_id: workshop.id });
       observer.disconnect();
     }, { threshold: 0.35 });
     observer.observe(formRef.current);
     return () => observer.disconnect();
+    // событие «увидел форму» — один раз за визит, смена воркшопа его не повторяет
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function markFormStarted() {
@@ -97,7 +105,7 @@ export default function RegistrationForm() {
 
     const eventId = window.crypto?.randomUUID?.() || `lead_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     try {
-      const response = await fetch("/workshops/api/leads", {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -106,6 +114,11 @@ export default function RegistrationForm() {
           workshopId: workshop.id,
           eventId,
           ...attribution,
+          // сквозная аналитика: склейка заявки с историей визитов
+          visitorId: getVisitorId(),
+          firstTouch: getFirstTouch(),
+          landing: window.location.pathname,
+          referrer: document.referrer || "",
         }),
       });
       const result = await response.json();
@@ -118,7 +131,7 @@ export default function RegistrationForm() {
           content_name: `${workshop.title} · ${workshop.date}`,
           content_category: "workshop",
           currency: "BYN",
-          value: Number.parseInt(site.price, 10) || undefined,
+          value: Number.parseInt(price, 10) || undefined,
         },
         { eventID: eventId }
       );
@@ -151,16 +164,20 @@ export default function RegistrationForm() {
       <p className="lead-form-intro">
         Оставьте контакты — в Telegram подтвердим запись и пришлём ссылку на оплату.
       </p>
-      <label className="lead-field">
-        <span>Воркшоп</span>
-        <select value={workshop.id} onChange={(event) => setWorkshopId(event.target.value)}>
-          {workshops.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.date} · {item.title}
-            </option>
-          ))}
-        </select>
-      </label>
+      {single ? (
+        <input type="hidden" name="workshop" value={workshop.id} />
+      ) : (
+        <label className="lead-field">
+          <span>Воркшоп</span>
+          <select value={workshop.id} onChange={(event) => setWorkshopId(event.target.value)}>
+            {workshops.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.date} · {item.title}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       <label className="lead-field">
         <span>Ваше имя</span>
         <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" minLength="2" required />
@@ -177,9 +194,11 @@ export default function RegistrationForm() {
         <p className="lead-form-error" role="alert">
           {error}{" "}
           {/* Запасной путь: без токена бот сам спросит имя и телефон. */}
-          <a href={site.telegramBotUrl} target="_blank" rel="noopener" style={{ color: "var(--lime)", textDecoration: "underline" }}>
-            Записаться через Telegram
-          </a>
+          {botUrl && (
+            <a href={botUrl} target="_blank" rel="noopener" style={{ color: "var(--lime)", textDecoration: "underline" }}>
+              Записаться через Telegram
+            </a>
+          )}
         </p>
       )}
       <button className="btn btn-primary" type="submit" disabled={isSubmitting} style={{ width: "100%", marginTop: 22, fontSize: 17, padding: 17 }}>

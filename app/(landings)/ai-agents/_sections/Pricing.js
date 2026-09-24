@@ -1,19 +1,18 @@
 import Reveal from "@/components/landing/Reveal";
 import { Icon } from "@/components/landing/icons";
-import { site } from "@/content/workshops/config";
 import RegistrationForm from "@/components/landing/RegistrationForm";
-import { workshops } from "@/content/workshops/schedule";
+import { site } from "@/content/workshops/config";
+import { workshop } from "../_content/content";
 
 export default function Pricing() {
   const taken = site.seatsTotal - site.seatsLeft;
   const pct = Math.round((taken / site.seatsTotal) * 100);
-
   const rows = [
-    { icon: "calendar", text: site.eventDateLabel },
-    { icon: "clock", text: site.eventTimeLabel },
+    { icon: "calendar", text: `${workshop.weekday}, ${workshop.date}` },
+    { icon: "clock", text: `${workshop.time} · 3 часа` },
     { icon: "pin", text: `${site.venue}, ${site.city}` },
     { icon: "laptop", text: "Со своим ноутбуком" },
-    { icon: "users", text: "Небольшая группа" },
+    { icon: "users", text: `Группа до ${site.seatsTotal} человек` },
   ];
 
   return (
@@ -33,9 +32,8 @@ export default function Pricing() {
             Осталось {site.seatsLeft} места из {site.seatsTotal}
           </div>
           <h2 style={{ fontSize: "clamp(26px,3.4vw,34px)", margin: "22px 0 24px" }}>
-            Запишитесь на воркшоп
+            Запишитесь на «{workshop.title}»
           </h2>
-
           <div>
             {rows.map((r) => (
               <div className="detail-row" key={r.text}>
@@ -44,7 +42,6 @@ export default function Pricing() {
               </div>
             ))}
           </div>
-
           <div className="seats">
             <div className="seats-head">
               <span>Занято мест</span>
@@ -54,16 +51,17 @@ export default function Pricing() {
               <div className="seats-fill" style={{ width: `${pct}%` }} />
             </div>
           </div>
-
           <div className="divider" />
           <div className="price-num mono">{site.price}</div>
-
           <RegistrationForm
-            workshops={workshops}
-            defaultWorkshopId="ai-agents-29-09"
+            workshops={[workshop]}
+            defaultWorkshopId={workshop.id}
             price={site.price}
             botUrl={site.telegramBotUrl}
           />
+          <p className="dim center" style={{ fontSize: 14, marginTop: 14 }}>
+            Другие темы и даты — в <a href="/workshops#schedule" style={{ color: "var(--lime)" }}>расписании воркшопов</a>.
+          </p>
         </Reveal>
       </div>
     </section>

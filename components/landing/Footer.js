@@ -1,4 +1,4 @@
-import { site } from "../_content/config";
+import { site } from "@/content/workshops/config";
 
 export default function Footer() {
   return (

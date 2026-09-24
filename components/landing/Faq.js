@@ -2,21 +2,21 @@
 
 import { useState } from "react";
 import Reveal from "@/components/landing/Reveal";
-import { faqs } from "../_content/faq";
 
-export default function Faq() {
+// items — массив { q, a }. Тот же список стоит отдать в FAQPage JSON-LD лендинга.
+export default function Faq({ items, title = "Частые вопросы" }) {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="section" style={{ background: "var(--bg-2)" }}>
+    <section className="section" id="faq" style={{ background: "var(--bg-2)" }}>
       <div className="container">
         <Reveal className="center" style={{ margin: "0 auto 48px" }}>
           <p className="eyebrow" style={{ justifyContent: "center" }}>Вопросы</p>
-          <h2 className="h2" style={{ marginTop: 16 }}>Частые вопросы</h2>
+          <h2 className="h2" style={{ marginTop: 16 }}>{title}</h2>
         </Reveal>
 
         <div className="faq-list">
-          {faqs.map((f, i) => {
+          {items.map((f, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} className="faq-item glass" delay={i * 0.04}>

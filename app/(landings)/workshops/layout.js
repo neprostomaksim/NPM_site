@@ -1,7 +1,7 @@
 import { Montserrat, JetBrains_Mono } from "next/font/google";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import "./landing.css";
+import "@/components/landing/glass-theme.css";
 import Analytics from "@/components/Analytics";
 import MarketingAnalytics from "@/components/landing/MarketingAnalytics";
 import MetaPixel from "@/components/landing/MetaPixel";

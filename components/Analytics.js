@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { captureFirstTouch, getVisitorId } from "@/lib/landing/attribution";
 
 // Лёгкий счётчик визитов: шлёт событие в сборщик платформы при каждой
 // загрузке/смене страницы. Не мешает сайту (ошибки глушатся), без cookies —
@@ -12,14 +13,8 @@ export default function Analytics({ site }) {
   const pathname = usePathname();
   useEffect(() => {
     try {
-      let vid = localStorage.getItem("vid");
-      if (!vid) {
-        vid =
-          (typeof crypto !== "undefined" && crypto.randomUUID
-            ? crypto.randomUUID()
-            : Math.random().toString(36).slice(2)) + Date.now().toString(36);
-        localStorage.setItem("vid", vid);
-      }
+      const vid = getVisitorId();
+      captureFirstTouch();
       const p = new URLSearchParams(location.search);
       const payload = JSON.stringify({
         site,

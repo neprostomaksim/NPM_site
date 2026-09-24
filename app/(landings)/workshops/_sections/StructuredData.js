@@ -1,7 +1,7 @@
-import { faqs } from "../_content/faq";
-import { site } from "../_content/config";
-import { workshops } from "../_content/workshops";
-import { LANDING_URL } from "../_content/config";
+import { faqs } from "@/content/workshops/faq";
+import { site } from "@/content/workshops/config";
+import { workshops } from "@/content/workshops/schedule";
+import { LANDING_URL } from "@/content/workshops/config";
 
 const SITE_URL = LANDING_URL;
 

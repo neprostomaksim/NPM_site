@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { site } from "../_content/config";
+import { site } from "@/content/workshops/config";
 
 export default function Hero() {
   return (

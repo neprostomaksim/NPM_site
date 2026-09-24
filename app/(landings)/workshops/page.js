@@ -1,10 +1,11 @@
 import StickyBars from "./_sections/StickyBars";
 import Hero from "./_sections/Hero";
 import Schedule from "./_sections/Schedule";
-import Gallery from "./_sections/Gallery";
-import Speaker from "./_sections/Speaker";
-import Faq from "./_sections/Faq";
-import Footer from "./_sections/Footer";
+import Gallery from "@/components/landing/Gallery";
+import Speaker from "@/components/landing/Speaker";
+import Faq from "@/components/landing/Faq";
+import { faqs } from "@/content/workshops/faq";
+import Footer from "@/components/landing/Footer";
 import Pricing from "./_sections/Pricing";
 
 export default function Page() {
@@ -17,7 +18,7 @@ export default function Page() {
         <Pricing />
         <Speaker />
         <Gallery />
-        <Faq />
+        <Faq items={faqs} />
       </main>
       <Footer />
     </>

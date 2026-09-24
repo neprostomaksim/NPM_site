@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Reveal from "@/components/landing/Reveal";
 import { Icon } from "@/components/landing/icons";
-import { site } from "../_content/config";
+import { site } from "@/content/workshops/config";
 
 export default function Speaker() {
   return (

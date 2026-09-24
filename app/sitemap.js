@@ -10,7 +10,8 @@ export default async function sitemap() {
     { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1.0 },
     { url: `${SITE_URL}/blog`, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/corporate`, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/workshops`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/workshops`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/ai-agents`, changeFrequency: "weekly", priority: 0.9 },
   ].map((r) => ({ ...r, lastModified: new Date() }));
 
   let postRoutes = [];

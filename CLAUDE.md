@@ -32,43 +32,58 @@ app/
     layout.js          <html>, fonts, globals.css, Person JSON-LD
     page.js, home-client.js, blog/, corporate/, admin/
   (landings)/
-    workshops/         one folder = one landing, fully self-contained
-      layout.js        its own <html>, fonts, CSS, Meta Pixel, analytics
+    workshops/         schedule of all workshops (multi-workshop form)
+    ai-agents/         single-event landing for «ИИ-агенты для руководителя»
+      layout.js        its own <html>, fonts, theme CSS, metadata, Pixel, analytics
       page.js          composes the sections
-      landing.css      the landing's whole design system
-      _content/        editable copy & data (config, schedule, FAQ)
-      _sections/       landing-specific sections
-      api/leads/       POST /workshops/api/leads
-      llms.txt/        /workshops/llms.txt
+      landing.css      small additions on top of the shared theme
+      _content/        copy for this landing (facts, program, FAQ…)
+      _sections/       landing-specific sections + StructuredData (JSON-LD)
+      opengraph-image.js  generated 1200×630 social preview (next/og)
+  api/leads/           POST /api/leads — signup from any landing (/workshops/api/leads is an alias)
+  api/e/               POST /api/e — funnel-step collector → funnel_events
   global-not-found.js  404 for unmatched URLs (see below)
   sitemap.js, robots.js
-components/landing/    building blocks any landing can reuse (Reveal, Countdown, icons, MetaPixel, MarketingAnalytics)
-lib/landing/           funnel plumbing: leads.js (Supabase insert + Meta CAPI Lead), marketingAnalytics.js (GA4/Метрика/Pixel events)
-components/Analytics.js visit counter → SMM platform /api/track, used by the site and landings
-public/workshops/      a landing's assets live under public/<landing>/
+content/workshops/     single source of truth: schedule.js (dates, titles, optional `landing`), config.js (price, venue, seats, links), faq.js
+components/landing/    shared blocks: glass-theme.css (the dark landing design system), RegistrationForm, Speaker, Gallery, Faq, Footer, Reveal, Countdown, icons, MetaPixel, MarketingAnalytics
+lib/landing/           leads.js (Supabase insert + Meta CAPI Lead), attribution.js (visitor id + first touch), funnel.js (step events), marketingAnalytics.js (GA4/Метрика/Pixel + funnel)
+components/Analytics.js pageview counter → SMM platform /api/track (site_events); also captures first touch
+public/workshops/      shared landing photos; public/llms.txt — site summary for AI search
+assets/fonts/          Montserrat TTF with Cyrillic, read by opengraph-image.js (next/og's default font has no Cyrillic)
 bot/                   Telegram signup bot (separate Node service, not part of the Next build)
-supabase/              SQL for workshop_leads / bot_events
+supabase/              SQL: workshop_leads, bot_events, funnel_tracking
 ```
 
-**Why route groups with separate root layouts.** The site (light, `--lime:#C8E620`, Anonymous Pro) and landings (dark glass, `--lime:#C6F432`, JetBrains Mono) both define global classes like `.container`, `.btn`, `.hero`. Each group has its own root `layout.js`, so Next does a **full page load** when crossing between them and the stylesheets never meet. Consequences: there is no top-level `app/layout.js`; a `next/link` from the site to a landing is a hard navigation (fine); and 404s for unmatched URLs come from [app/global-not-found.js](app/global-not-found.js), enabled by `experimental.globalNotFound` in [next.config.mjs](next.config.mjs). Two groups must never define the same URL.
+**Why route groups with separate root layouts.** The site (light, `--lime:#C8E620`, Anonymous Pro) and landings (dark glass, `--lime:#C6F432`, JetBrains Mono) both define global classes like `.container`, `.btn`, `.hero`. Each group has its own root `layout.js`, so Next does a **full page load** when crossing between them and the stylesheets never meet. Consequences: there is no top-level `app/layout.js`; a `next/link` from the site to a landing is a hard navigation (fine); and 404s for unmatched URLs come from [app/global-not-found.js](app/global-not-found.js), enabled by `experimental.globalNotFound` in [next.config.mjs](next.config.mjs). Two groups must never define the same URL. Each landing is its own root layout too (`(landings)` has no shared layout), so every landing's `layout.js` imports `components/landing/glass-theme.css` itself.
 
 `_content` and `_sections` start with `_`, which makes them private folders — never routed. (Same reason a test route named `__something` 404s.)
 
 ## Creating a new landing
 
-1. Copy `app/(landings)/workshops/` to `app/(landings)/<slug>/` — the folder name is the URL (`nempl.app/<slug>`). Check it doesn't collide with a route in `app/(site)`.
-2. Rewrite `_content/` (copy, dates, prices, links) and the sections in `_sections/`; restyle `landing.css`. Keep reusable pieces in `components/landing/` rather than copying them.
-3. In `layout.js`: set `metadata` (title, description, `alternates.canonical: "/<slug>"`, OG image under `/<slug>/…`) and the `Analytics site="…"` label.
-4. Assets go to `public/<slug>/` and are referenced as `/<slug>/file.jpg`.
-5. If the landing collects signups, keep `api/leads/route.js` and point the form's `fetch` at `/<slug>/api/leads`. The route uses `lib/landing/leads.js`; change the price, bot URL and what goes into `source`/`workshop_id`.
-6. Add `/<slug>` to [app/sitemap.js](app/sitemap.js).
-7. `npm run build`, then check the page, `/`, and a 404 in the browser.
+The closest template for a single event is `app/(landings)/ai-agents/`; for a multi-event page, `workshops/`.
 
-## The /workshops funnel
+1. Copy the folder to `app/(landings)/<slug>/` — the folder name is the URL (`nempl.app/<slug>`). Check it doesn't collide with a route in `app/(site)`.
+2. Rewrite `_content/`. Dates, prices, venue and seats come from `content/workshops/` — add the event to `schedule.js` (and set its `landing: "/<slug>"` so /workshops links to it) instead of hardcoding them.
+3. `layout.js`: `metadata` (title, description, `alternates.canonical: "/<slug>"`), the `Analytics site="nempl.app"` label. `opengraph-image.js` builds the social preview; don't put its URL in JSON-LD (Next appends a hash; the bare path 404s).
+4. `_sections/StructuredData.js`: event (dates, `offers` with price/currency/availability, `location`, capacity), FAQPage from the same FAQ array the page renders, BreadcrumbList, WebPage with `dateModified`.
+5. Use the shared `RegistrationForm` (posts to `/api/leads`); pass `workshops={[oneWorkshop]}` to hide the selector.
+6. Add `/<slug>` to [app/sitemap.js](app/sitemap.js) and a line to [public/llms.txt](public/llms.txt).
+7. **Update the bot's `WORKSHOPS` list** in [bot/index.js](bot/index.js) if the event is new.
+8. `npm run build`, then check the page, `/`, a 404 and the OG image in the browser.
 
-Meta Ads → `nempl.app/workshops?utm_…` → form (workshop + name + phone) → `POST /workshops/api/leads` → row in Supabase `public.workshop_leads` + server `Lead` to Meta CAPI (deduplicated with the browser `fbq('track','Lead')` by `eventId`) → response is a Telegram deep link `t.me/nempl_workshop_kop_bot?start=lead_<token>` → the bot recognises the token, confirms the chosen workshop and sends the payment link. The person types name/phone once, on the site. If the API fails, the form shows a direct link to the bot, which can collect name/phone itself.
+## Funnel & tracking
 
-Edit dates, price, seats and links in [`_content/config.js`](app/(landings)/workshops/_content/config.js) and the schedule in [`_content/workshops.js`](app/(landings)/workshops/_content/workshops.js). **The bot keeps its own copy of the workshop list** (`WORKSHOPS` in [bot/index.js](bot/index.js)) — when you add or rename a workshop, update both, or the bot will greet the lead with a stale title.
+Meta Ads → landing (`?utm_…`) → form → `POST /api/leads` → row in Supabase `public.workshop_leads` + server `Lead` to Meta CAPI (deduplicated with the browser `fbq('track','Lead')` by `eventId`) → response is a Telegram deep link `t.me/nempl_workshop_kop_bot?start=lead_<token>` → the bot recognises the token, confirms the workshop and sends the payment link (`status=payment_link_sent`). Actual payment is **not** recorded anywhere. If the API fails, the form shows a direct link to the bot, which can collect name/phone itself.
+
+End-to-end attribution, joined on an anonymous `visitor_id` (localStorage `vid`, shared by every page on nempl.app):
+- pageviews → `site_events` via the SMM platform's `/api/track` ([components/Analytics.js](components/Analytics.js));
+- first touch (utm/referrer/landing page of the very first visit) → localStorage `ft`, never overwritten ([lib/landing/attribution.js](lib/landing/attribution.js));
+- funnel steps (`cta_clicked`, `form_viewed`, `form_started`, `form_submit_attempted`, `lead_created`, `telegram_handoff_started`, `form_submit_failed`) → every `trackMarketingEvent` call also goes to `/api/e` → `funnel_events`. Kept out of `site_events` so clicks never count as visits. Tag new CTAs with `data-analytics-event="cta_clicked"` and `data-analytics-location`;
+- the lead row gets `visitor_id`, `landing`, `referrer`, `first_touch`.
+
+The report lives in the SMM platform: Статистика → «📈 Воронка» (`/api/stats/funnel`). It needs [supabase/funnel_tracking.sql](supabase/funnel_tracking.sql) applied; until then `/api/e` drops events silently and `insertLead` retries without the attribution columns (PostgREST `PGRST204`), so leads are never lost to analytics.
+
+Edit dates, price, seats and links in [content/workshops/config.js](content/workshops/config.js) and the schedule in [content/workshops/schedule.js](content/workshops/schedule.js). **The bot keeps its own copy of the workshop list** (`WORKSHOPS` in [bot/index.js](bot/index.js)) — update both, or the bot greets the lead with a stale title.
 
 ## Telegram bot (`bot/`)
 
@@ -83,7 +98,7 @@ Sanity reads two vars, both with hardcoded fallbacks in [sanity/client.js](sanit
 
 Without a real project ID every Sanity fetch throws, and the code swallows the error: the homepage silently renders three hardcoded `fallbackPosts` from [app/(site)/page.js](app/(site)/page.js) and `/blog` renders its empty state. An apparently-working homepage is not evidence that Sanity is connected — check `/blog`.
 
-Landing signups need server-only vars on the Vercel project (never `NEXT_PUBLIC_`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `META_PIXEL_ID`, `META_CONVERSIONS_API_TOKEN`, `META_EVENT_SOURCE_URL`, optionally `META_GRAPH_API_VERSION` / `META_TEST_EVENT_CODE`. Without the Supabase pair `/workshops/api/leads` returns 503. Client analytics IDs (`NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID`, `NEXT_PUBLIC_YANDEX_METRIKA_ID`) have hardcoded fallbacks. No `.env*` file is committed; `.env.example` templates are.
+Landing signups need server-only vars on the Vercel project (never `NEXT_PUBLIC_`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `META_PIXEL_ID`, `META_CONVERSIONS_API_TOKEN`, `META_EVENT_SOURCE_URL`, optionally `META_GRAPH_API_VERSION` / `META_TEST_EVENT_CODE`. Without the Supabase pair `/api/leads` returns 503 and `/api/e` drops events. Client analytics IDs (`NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID`, `NEXT_PUBLIC_YANDEX_METRIKA_ID`) have hardcoded fallbacks. No `.env*` file is committed; `.env.example` templates are.
 
 ## The site (`app/(site)`)
 
