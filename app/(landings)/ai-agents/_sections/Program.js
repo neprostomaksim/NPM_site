@@ -8,6 +8,7 @@ export default function Program() {
         <Reveal className="section-heading">
           <p className="eyebrow" style={{ justifyContent: "center" }}>Программа · {workshop.time} · 3 часа</p>
           <h2 className="h2" style={{ marginTop: 18 }}>Как пройдёт вечер</h2>
+          <p className="lead" style={{ marginTop: 16 }}>Две трети времени — практика на ваших задачах.</p>
         </Reveal>
         <ol className="timeline" style={{ listStyle: "none", padding: 0 }}>
           {program.map((s, i) => {

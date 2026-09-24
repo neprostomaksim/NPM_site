@@ -2,7 +2,7 @@ import Reveal from "@/components/landing/Reveal";
 import { Icon } from "@/components/landing/icons";
 import RegistrationForm from "@/components/landing/RegistrationForm";
 import { site } from "@/content/workshops/config";
-import { workshop } from "../_content/content";
+import { included, workshop } from "../_content/content";
 
 export default function Pricing() {
   const taken = site.seatsTotal - site.seatsLeft;
@@ -32,7 +32,7 @@ export default function Pricing() {
             Осталось {site.seatsLeft} места из {site.seatsTotal}
           </div>
           <h2 style={{ fontSize: "clamp(26px,3.4vw,34px)", margin: "22px 0 24px" }}>
-            Запишитесь на «{workshop.title}»
+            Забронируйте место на {workshop.date}
           </h2>
           <div>
             {rows.map((r) => (
@@ -53,11 +53,17 @@ export default function Pricing() {
           </div>
           <div className="divider" />
           <div className="price-num mono">{site.price}</div>
+          <ul className="aa-included">
+            {included.map((t) => (
+              <li key={t}><span className="aa-check" aria-hidden="true">✓</span>{t}</li>
+            ))}
+          </ul>
           <RegistrationForm
             workshops={[workshop]}
             defaultWorkshopId={workshop.id}
             price={site.price}
             botUrl={site.telegramBotUrl}
+            submitLabel="Забронировать место"
           />
           <p className="dim center" style={{ fontSize: 14, marginTop: 14 }}>
             Другие темы и даты — в <a href="/workshops#schedule" style={{ color: "var(--lime)" }}>расписании воркшопов</a>.

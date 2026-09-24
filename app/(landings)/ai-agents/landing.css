@@ -1,6 +1,80 @@
-/* Дополнения к общей теме (components/landing/glass-theme.css) для /ai-agents. */
+/* Дополнения к общей теме (components/landing/glass-theme.css) для /ai-agents.
+   Префикс aa- — чтобы не пересекаться с классами темы и поздними переопределениями в ней. */
 
-/* «Коротко о воркшопе» — таблица фактов */
+.aa-center { text-align: center; justify-content: center; }
+.aa-nowrap { white-space: nowrap; }
+.aa-card-title { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.25; }
+
+/* ---------- HERO ---------- */
+.aa-hero { position: relative; overflow: hidden; padding: 150px 0 90px; }
+.aa-hero-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.aa-hero .eyebrow { justify-content: center; }
+.aa-title {
+  font-size: clamp(42px, 7vw, 96px); font-weight: 800; line-height: 1.02;
+  letter-spacing: -0.055em; margin: 26px 0 24px; max-width: 1000px;
+}
+.aa-title .lime { display: inline-block; background: linear-gradient(90deg, var(--lime), var(--lime-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.aa-sub { font-size: clamp(17px, 1.9vw, 20px); line-height: 1.6; color: var(--text-dim); max-width: 720px; }
+.aa-cta-row { display: flex; align-items: center; gap: 26px; margin-top: 36px; flex-wrap: wrap; justify-content: center; }
+.aa-btn-lg { font-size: 16px; padding: 19px 30px; min-height: 58px; box-shadow: 0 10px 44px rgba(198, 244, 50, 0.28); }
+.aa-proof { display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; padding: 8px 18px 8px 8px; border-radius: 999px; background: var(--glass); border: 1px solid var(--border); }
+.aa-proof img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+.aa-proof p { font-size: 14px; color: var(--text-dim); }
+.aa-proof b { color: var(--text); font-weight: 600; }
+
+.aa-scene { width: 100%; margin-top: 64px; text-align: left; box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55), 0 0 80px rgba(198, 244, 50, 0.08); }
+.aa-agent-out { font-size: 11.5px; color: var(--text-dim); line-height: 1.45; }
+
+.aa-countdown { margin-top: 48px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.aa-countdown-label { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+.aa-countdown .countdown { justify-content: center; }
+
+/* ---------- INSIGHT ---------- */
+.aa-insight {
+  margin-top: 26px; border-radius: var(--radius); padding: 34px 40px;
+  display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap;
+  border-left: 3px solid var(--lime);
+}
+.aa-insight-big { font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.25; max-width: 600px; }
+
+/* ---------- COMPARE ---------- */
+.aa-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 980px; margin: 0 auto; }
+.aa-compare-col { border-radius: var(--radius); padding: 32px 34px; }
+.aa-compare-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.aa-compare-col li { display: flex; gap: 12px; font-size: 16.5px; line-height: 1.5; }
+.aa-compare-col:first-child li { color: var(--text-dim); }
+.aa-compare-head { font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 22px; }
+.aa-compare-win { border-color: rgba(198, 244, 50, 0.35); box-shadow: 0 0 60px rgba(198, 244, 50, 0.1); }
+.aa-x { color: var(--text-faint); font-weight: 700; flex-shrink: 0; width: 18px; }
+.aa-check { color: var(--lime); font-weight: 700; flex-shrink: 0; width: 18px; }
+
+/* ---------- AGENTS ---------- */
+.aa-agents { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.aa-agent-card { border-radius: var(--radius); padding: 32px 32px 28px; display: flex; flex-direction: column; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+.aa-agent-card:hover { transform: translateY(-5px); border-color: rgba(198, 244, 50, 0.32); box-shadow: 0 0 42px rgba(198, 244, 50, 0.12); }
+.aa-agent-top { display: flex; align-items: center; justify-content: space-between; }
+.aa-agent-num { font-size: 38px; font-weight: 800; color: rgba(255, 255, 255, 0.07); line-height: 1; }
+.aa-io {
+  margin-top: auto; padding-top: 22px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  font-size: 12.5px;
+}
+.aa-io-in { padding: 7px 11px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-dim); }
+.aa-io-arrow { color: var(--lime); font-size: 16px; }
+.aa-io-out { padding: 7px 11px; border-radius: 10px; background: var(--lime-soft); border: 1px solid rgba(198, 244, 50, 0.25); color: var(--lime); }
+
+/* ---------- STEPS ---------- */
+.aa-steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: none; }
+.aa-step { border-radius: var(--radius); padding: 32px 30px; position: relative; }
+.aa-step:not(:last-child)::after {
+  content: "→"; position: absolute; right: -16px; top: 50px; z-index: 2;
+  color: var(--lime); font-size: 20px;
+}
+
+/* ---------- PRICE ---------- */
+.aa-included { list-style: none; padding: 0; margin: 18px 0 6px; display: flex; flex-direction: column; gap: 10px; }
+.aa-included li { display: flex; gap: 10px; font-size: 15.5px; line-height: 1.45; }
+
+/* ---------- FACTS (GEO) ---------- */
 .facts { max-width: 880px; margin: 0 auto; border-radius: 24px; padding: 10px 34px 26px; }
 .facts dl { margin: 0; }
 .facts-row { display: grid; grid-template-columns: 170px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--border); }
@@ -9,9 +83,29 @@
 .facts-row dd { margin: 0; font-size: 16.5px; line-height: 1.6; }
 .facts-updated { margin-top: 14px; font-size: 12.5px; color: var(--text-faint); text-align: right; }
 
-.hero .countdown { justify-content: flex-start; }
+/* ---------- FINAL CTA ---------- */
+.aa-final { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.aa-final-kicker { font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(11, 12, 14, 0.62); }
+.aa-final-title { color: #0B0C0E; max-width: 760px; margin: 18px 0 14px; font-weight: 800; letter-spacing: -0.04em; }
+.aa-final-sub { color: rgba(11, 12, 14, 0.72); font-size: 18px; margin-bottom: 30px; }
+.panel-bright .aa-btn-lg { box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); }
 
+/* ---------- MOBILE ---------- */
+@media (max-width: 900px) {
+  .aa-agents, .aa-compare, .aa-steps { grid-template-columns: 1fr; }
+  .aa-step:not(:last-child)::after { content: "↓"; right: auto; left: 50%; top: auto; bottom: -24px; }
+  .aa-steps { gap: 30px; }
+}
 @media (max-width: 767px) {
+  .aa-hero { padding: 118px 0 64px; }
+  .aa-title { letter-spacing: -0.045em; }
+  .aa-cta-row { flex-direction: column; width: 100%; gap: 18px; }
+  .aa-cta-row .btn { width: 100%; }
+  .aa-scene { margin-top: 44px; }
+  .aa-insight { padding: 26px 22px; }
+  .aa-compare-col, .aa-agent-card, .aa-step { padding: 26px 22px; }
   .facts { padding: 6px 20px 20px; }
   .facts-row { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
+  .mobile-bar { padding-bottom: calc(14px + env(safe-area-inset-bottom)); background: rgba(16, 18, 21, 0.94); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); border-top: 1px solid var(--border-strong); }
+  .aa-title { font-size: clamp(38px, 11vw, 56px); }
 }

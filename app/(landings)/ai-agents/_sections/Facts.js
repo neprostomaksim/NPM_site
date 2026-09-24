@@ -10,7 +10,7 @@ export default function Facts() {
       <div className="container">
         <Reveal className="section-heading">
           <p className="eyebrow" style={{ justifyContent: "center" }}>Коротко</p>
-          <h2 className="h2" id="facts-title" style={{ marginTop: 18 }}>Воркшоп «ИИ-агенты для руководителя» — главное</h2>
+          <h2 className="h2" id="facts-title" style={{ marginTop: 18 }}>Коротко о воркшопе «Личные ИИ-агенты за один вечер»</h2>
         </Reveal>
         <Reveal className="facts glass">
           <dl>

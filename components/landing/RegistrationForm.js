@@ -37,7 +37,7 @@ function getAttribution() {
   };
 }
 
-export default function RegistrationForm({ workshops, defaultWorkshopId, price, botUrl, apiUrl = "/api/leads" }) {
+export default function RegistrationForm({ workshops, defaultWorkshopId, price, botUrl, apiUrl = "/api/leads", submitLabel = "Оставить заявку" }) {
   const formRef = useRef(null);
   const formStarted = useRef(false);
   const [workshopId, setWorkshopId] = useState(defaultWorkshopId || workshops[0]?.id);
@@ -202,7 +202,7 @@ export default function RegistrationForm({ workshops, defaultWorkshopId, price, 
         </p>
       )}
       <button className="btn btn-primary" type="submit" disabled={isSubmitting} style={{ width: "100%", marginTop: 22, fontSize: 17, padding: 17 }}>
-        {isSubmitting ? "Сохраняем заявку…" : "Оставить заявку"}
+        {isSubmitting ? "Сохраняем заявку…" : submitLabel}
       </button>
       <p className="dim center" style={{ fontSize: 14, marginTop: 16 }}>
         Данные вводятся один раз: в Telegram повторно спрашивать их не будем.

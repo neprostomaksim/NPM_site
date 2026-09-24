@@ -1,5 +1,5 @@
 import { site } from "@/content/workshops/config";
-import { LANDING_URL, PRICE_BYN, UPDATED_AT, endsAt, faq, outcomes, workshop } from "../_content/content";
+import { LANDING_URL, PRICE_BYN, UPDATED_AT, agents, endsAt, faq, workshop } from "../_content/content";
 
 // JSON-LD лендинга: событие (с ценой, местами и площадкой), FAQ,
 // хлебные крошки и сама страница. Это то, что Google показывает в
@@ -12,8 +12,8 @@ export default function StructuredData() {
       "@type": "WebPage",
       "@id": `${LANDING_URL}#webpage`,
       url: LANDING_URL,
-      name: `${workshop.title} — воркшоп ${workshop.date} в Минске`,
-      description: `${workshop.tagline}. Практический воркшоп Максима Леонова: 3 часа, без кода, на своих задачах.`,
+      name: `${workshop.title} — воркшоп по ИИ-агентам ${workshop.date} в Минске`,
+      description: `${workshop.tagline}. Практический воркшоп Максима Леонова в Минске: 3 часа, без кода, на своих задачах.`,
       inLanguage: "ru-BY",
       dateModified: UPDATED_AT,
       about: { "@id": eventId },
@@ -51,7 +51,7 @@ export default function StructuredData() {
       image: "https://nempl.app/workshops/hero-bg.jpg",
       url: LANDING_URL,
       educationalLevel: "beginner",
-      teaches: outcomes.map((o) => o.title),
+      teaches: ["Создание личных ИИ-агентов без программирования", ...agents.map((a) => a.name)],
       maximumAttendeeCapacity: site.seatsTotal,
       remainingAttendeeCapacity: site.seatsLeft,
       isAccessibleForFree: false,

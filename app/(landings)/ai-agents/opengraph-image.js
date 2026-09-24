@@ -7,7 +7,7 @@ import { workshop } from "./_content/content";
 // Картинка для превью ссылки (Telegram, соцсети, мессенджеры): 1200×630.
 // Шрифт — локальный Montserrat с кириллицей (дефолтный шрифт next/og её не содержит).
 
-export const alt = "ИИ-агенты для руководителя — воркшоп Максима Леонова в Минске";
+export const alt = "Личные ИИ-агенты за один вечер — воркшоп Максима Леонова в Минске";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -37,8 +37,8 @@ export default async function OgImage() {
           Воркшоп · {site.city}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3 }}>ИИ-агенты</div>
-          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: "#C6F432" }}>для руководителя</div>
+          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3 }}>Личные ИИ-агенты</div>
+          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: "#C6F432" }}>за один вечер</div>
           <div style={{ marginTop: 28, fontSize: 32, fontWeight: 500, color: "rgba(242,244,245,0.72)" }}>{workshop.tagline}</div>
         </div>
         <div style={{ display: "flex", gap: 22, fontSize: 30, fontWeight: 800 }}>
