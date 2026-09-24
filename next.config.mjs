@@ -8,6 +8,12 @@ const nextConfig = {
   turbopack: {
     root: import.meta.dirname,
   },
+  // Сайт (app/(site)) и лендинги (app/(landings)/*) живут под разными корневыми
+  // layout'ами, общего app/layout.js нет — поэтому 404 для несуществующих адресов
+  // задаётся отдельно в app/global-not-found.js.
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     remotePatterns: [
       {

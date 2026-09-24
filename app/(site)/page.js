@@ -1,5 +1,5 @@
 import HomeClient from "./home-client";
-import { client } from "../sanity/client";
+import { client } from "../../sanity/client";
 
 async function getRecentPosts() {
   const query = `*[_type == "post"] | order(publishedAt desc)[0...3] {

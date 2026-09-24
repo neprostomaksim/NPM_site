@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { Nav, Footer } from "../../home-client";
-import { client, urlFor } from "../../../sanity/client";
+import { client, urlFor } from "../../../../sanity/client";
 
 // Fetch post from Sanity
 async function getPost(slug) {

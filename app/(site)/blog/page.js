@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Nav, Footer } from "../home-client";
-import { client, urlFor } from "../../sanity/client";
+import { client, urlFor } from "../../../sanity/client";
 
 export const metadata = {
   title: "Блог об ИИ и нейросетях | Максим Леонов",

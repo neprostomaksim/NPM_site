@@ -1,0 +1,29 @@
+import Image from "next/image";
+import { site } from "../_content/config";
+
+export default function Hero() {
+  return (
+    <section className="hero" id="top">
+      <div className="container">
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <p className="eyebrow">ИИ для бизнеса · Практика в Минске</p>
+            <h1 className="hero-title">Меньше рутины.<br />Больше <span className="lime">возможностей.</span></h1>
+            <p className="lead hero-lead">Практические воркшопы по ИИ в Минске: научитесь работать с нейросетями и создайте своего ИИ-помощника, бота или первый продукт за один вечер.</p>
+            <div className="hero-btns">
+              <a className="btn btn-primary" href="#register" data-analytics-event="cta_clicked" data-analytics-location="hero">Записаться на 29 сентября <span aria-hidden="true">↗</span></a>
+              <a className="hero-text-link" href="#atmosphere">Как это проходит <span aria-hidden="true">↘</span></a>
+            </div>
+            <div className="hero-proof"><Image src="/workshops/speaker.jpg" alt="" width={40} height={40} sizes="40px" quality={70} /><p><strong>{site.trainedCount} человек уже прошли обучение</strong><span>Воркшопы с Максимом Леоновым</span></p></div>
+          </div>
+          <div className="hero-visual">
+            <Image className="hero-workshop-photo" src="/workshops/hero-bg.jpg" alt="Участники практического воркшопа по ИИ в Минске работают с ноутбуками" width={1024} height={571} priority sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1050px) 48vw, 560px" quality={72} />
+            <div className="photo-label mono"><span className="pulse-dot" /> ОФЛАЙН. В ЖИВОМ ДИАЛОГЕ.</div>
+            <div className="hero-note"><span className="mono">ОТ ИДЕИ К РЕЗУЛЬТАТУ</span><strong>Вы ставите задачу.<br />ИИ помогает создавать.</strong><div className="note-bottom"><span>Ваш ноутбук. Ваши задачи.</span><span aria-hidden="true">↗</span></div></div>
+          </div>
+        </div>
+        <div className="hero-facts"><div><span className="mono">01 / ФОРМАТ</span><strong>3 часа практики</strong></div><div><span className="mono">02 / ПОДХОД</span><strong>Без навыков кода</strong></div><div><span className="mono">03 / МЕСТО</span><strong>{site.city}, «Молоко»</strong></div><a href="#schedule"><span className="mono">СЕНТЯБРЬ — ОКТЯБРЬ 2026</span><strong>Найти свой вечер <span aria-hidden="true">↓</span></strong></a></div>
+      </div>
+    </section>
+  );
+}
