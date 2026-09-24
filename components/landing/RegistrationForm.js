@@ -12,6 +12,41 @@ import { getFirstTouch, getVisitorId } from "@/lib/landing/attribution";
 // Если в списке один воркшоп, поле выбора скрыто (лендинг одного события).
 // После сохранения заявки браузер уходит в Telegram по deep link из ответа API.
 
+// Коды стран для поля телефона. Беларусь — по умолчанию (основная аудитория).
+// code: "" — «Другая страна»: человек вводит номер целиком, с «+» и кодом.
+const COUNTRIES = [
+  { id: "BY", flag: "🇧🇾", name: "Беларусь", code: "375", placeholder: "29 123-45-67" },
+  { id: "RU", flag: "🇷🇺", name: "Россия", code: "7", placeholder: "912 345-67-89" },
+  { id: "KZ", flag: "🇰🇿", name: "Казахстан", code: "7", placeholder: "701 234-56-78" },
+  { id: "UA", flag: "🇺🇦", name: "Украина", code: "380", placeholder: "67 123-45-67" },
+  { id: "PL", flag: "🇵🇱", name: "Польша", code: "48", placeholder: "512 345 678" },
+  { id: "LT", flag: "🇱🇹", name: "Литва", code: "370", placeholder: "612 34567" },
+  { id: "LV", flag: "🇱🇻", name: "Латвия", code: "371", placeholder: "21 234 567" },
+  { id: "EE", flag: "🇪🇪", name: "Эстония", code: "372", placeholder: "5123 4567" },
+  { id: "GE", flag: "🇬🇪", name: "Грузия", code: "995", placeholder: "555 12-34-56" },
+  { id: "AM", flag: "🇦🇲", name: "Армения", code: "374", placeholder: "77 123456" },
+  { id: "AZ", flag: "🇦🇿", name: "Азербайджан", code: "994", placeholder: "50 123-45-67" },
+  { id: "UZ", flag: "🇺🇿", name: "Узбекистан", code: "998", placeholder: "90 123-45-67" },
+  { id: "KG", flag: "🇰🇬", name: "Кыргызстан", code: "996", placeholder: "700 123-456" },
+  { id: "MD", flag: "🇲🇩", name: "Молдова", code: "373", placeholder: "62 123 456" },
+  { id: "DE", flag: "🇩🇪", name: "Германия", code: "49", placeholder: "1512 3456789" },
+  { id: "AE", flag: "🇦🇪", name: "ОАЭ", code: "971", placeholder: "50 123 4567" },
+  { id: "US", flag: "🇺🇸", name: "США", code: "1", placeholder: "201 555-0123" },
+  { id: "OTHER", flag: "🌐", name: "Другая страна", code: "", placeholder: "+код и номер" },
+];
+
+// Склеивает код страны и номер. Терпимо к тому, что человек всё же ввёл код сам:
+// «+375 29…» (в т.ч. автозаполнение браузера), «375 29…», белорусское «80 29…», российское «8 912…».
+function buildPhone(country, national) {
+  const raw = national.trim();
+  if (raw.startsWith("+") || !country.code) return raw;
+  let digits = raw.replace(/\D/g, "");
+  if (country.id === "BY" && digits.startsWith("80")) digits = digits.slice(2);
+  else if (country.code === "7" && digits.length === 11 && digits.startsWith("8")) digits = digits.slice(1);
+  else if (digits.startsWith(country.code) && digits.length > country.code.length + 6) digits = digits.slice(country.code.length);
+  return `+${country.code} ${digits}`;
+}
+
 function readCookie(name) {
   const encodedName = `${encodeURIComponent(name)}=`;
   return document.cookie
@@ -43,6 +78,8 @@ export default function RegistrationForm({ workshops, defaultWorkshopId, price, 
   const [workshopId, setWorkshopId] = useState(defaultWorkshopId || workshops[0]?.id);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [countryId, setCountryId] = useState("BY");
+  const country = COUNTRIES.find((c) => c.id === countryId) || COUNTRIES[0];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const single = workshops.length === 1;
@@ -92,6 +129,11 @@ export default function RegistrationForm({ workshops, defaultWorkshopId, price, 
   async function submit(event) {
     event.preventDefault();
     setError("");
+    const fullPhone = buildPhone(country, phone);
+    if (fullPhone.replace(/\D/g, "").length < 9) {
+      setError("Проверьте номер телефона — кажется, в нём не хватает цифр.");
+      return;
+    }
     setIsSubmitting(true);
 
     const attribution = getAttribution();
@@ -110,7 +152,7 @@ export default function RegistrationForm({ workshops, defaultWorkshopId, price, 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
-          phone,
+          phone: fullPhone,
           workshopId: workshop.id,
           eventId,
           ...attribution,
@@ -182,10 +224,38 @@ export default function RegistrationForm({ workshops, defaultWorkshopId, price, 
         <span>Ваше имя</span>
         <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" minLength="2" required />
       </label>
-      <label className="lead-field">
-        <span>Телефон</span>
-        <input value={phone} onChange={(event) => setPhone(event.target.value)} autoComplete="tel" inputMode="tel" placeholder="+375 29 123-45-67" minLength="9" required />
-      </label>
+      <div className="lead-field">
+        <span id="lead-phone-label">Телефон</span>
+        <span className="lead-phone">
+          {/* Нативный select поверх компактной «кнопки»: на телефоне открывается системный выбор. */}
+          <span className="lead-cc">
+            <span className="lead-cc-face" aria-hidden="true">
+              {country.flag} {country.code ? `+${country.code}` : "Код"}
+            </span>
+            <select
+              value={country.id}
+              onChange={(event) => setCountryId(event.target.value)}
+              aria-label="Код страны"
+            >
+              {COUNTRIES.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.flag} {c.name}{c.code ? ` +${c.code}` : ""}
+                </option>
+              ))}
+            </select>
+          </span>
+          <input
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+            autoComplete={country.code ? "tel-national" : "tel"}
+            inputMode="tel"
+            placeholder={country.placeholder}
+            minLength="6"
+            required
+            aria-labelledby="lead-phone-label"
+          />
+        </span>
+      </div>
       <label className="lead-consent">
         <input type="checkbox" required />
         <span>Согласен на обработку данных для записи и связь по заявке.</span>

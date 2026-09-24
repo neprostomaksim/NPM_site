@@ -739,3 +739,24 @@ body { font-family: var(--font-sans), sans-serif; }
 }
 @media (max-width: 380px) { .logo { font-size: 13px; } .header-bar { padding: 12px; } .hero-note strong { font-size: 23px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* ---- поле телефона: код страны + номер ---- */
+/* .lead-field > .lead-phone — сильнее общего правила .lead-field > span { display:block } */
+.lead-field > .lead-phone { display: flex; gap: 8px; margin: 0; font-size: inherit; color: inherit; }
+.lead-phone input { flex: 1; min-width: 0; }
+.lead-cc { position: relative; display: flex; flex: 0 0 auto; }
+.lead-cc-face {
+  display: flex; align-items: center; justify-content: center; gap: 6px; height: 100%;
+  min-height: 48px; padding: 0 30px 0 14px; border: 1px solid var(--border); border-radius: 10px;
+  background: rgba(255,255,255,.055); color: var(--text); white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.lead-cc-face::after {
+  content: ""; position: absolute; right: 12px; top: 50%; width: 7px; height: 7px; margin-top: -5px;
+  border-right: 1.5px solid var(--text-dim); border-bottom: 1.5px solid var(--text-dim); transform: rotate(45deg);
+}
+/* сам select прозрачный и растянут поверх — клики и системный выбор работают нативно */
+.lead-cc select {
+  position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+  min-height: 0; padding: 0; border: 0; appearance: none; font-size: 16px;
+}
+.lead-cc:focus-within .lead-cc-face { border-color: var(--lime); box-shadow: 0 0 0 3px rgba(198,244,50,.14); }

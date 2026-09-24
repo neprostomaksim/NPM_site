@@ -12,6 +12,8 @@ const ENDPOINT = "https://smm-command.vercel.app/api/track";
 export default function Analytics({ site }) {
   const pathname = usePathname();
   useEffect(() => {
+    // Sanity Studio (/admin) — это работа редактора, а не визиты посетителей.
+    if ((pathname || "").startsWith("/admin")) return;
     try {
       const vid = getVisitorId();
       captureFirstTouch();
