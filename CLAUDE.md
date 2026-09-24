@@ -130,9 +130,13 @@ Tailwind v4 is installed and wired into [postcss.config.mjs](postcss.config.mjs)
 
 ### SEO (site)
 
-[app/(site)/layout.js](app/(site)/layout.js) carries the site-wide `metadata` (`metadataBase: https://nempl.app`, OG, Twitter, canonical) and a hand-built `Person` JSON-LD blob. It hardcodes stats (40 000+ audience, 350+ students) that also appear in `Numbers` in `home-client.js` — update both together. (The M.AI.N community brand was fully scrubbed — name, founder claim, community link, and its 2500+ stat — don't reintroduce it.) `/blog/[slug]` builds per-article metadata in `generateMetadata`, preferring `seoTitle`/`seoDescription` over `title`/`excerpt`. Landings set their own metadata and JSON-LD in their `layout.js` / `_sections/StructuredData.js`.
+[app/(site)/layout.js](app/(site)/layout.js) carries the site-wide `metadata` (`metadataBase: https://www.nempl.app`, OG, Twitter, canonical) and a hand-built `Person` JSON-LD blob. It hardcodes stats (40 000+ audience, 350+ students) that also appear in `Numbers` in `home-client.js` — update both together. (The M.AI.N community brand was fully scrubbed — name, founder claim, community link, and its 2500+ stat — don't reintroduce it.) `/blog/[slug]` builds per-article metadata in `generateMetadata`, preferring `seoTitle`/`seoDescription` over `title`/`excerpt`. Landings set their own metadata and JSON-LD in their `layout.js` / `_sections/StructuredData.js`.
 
 OG/Twitter images are served from [public/uploads/](public/uploads/); renaming a file there silently breaks the social card.
+
+**Canonical host is `https://www.nempl.app`.** Vercel 308-redirects the bare `nempl.app` to `www`, so every absolute URL (metadataBase, canonical, sitemap, robots, JSON-LD, llms.txt, `LANDING_URL`) must use `www` — a canonical pointing at a redirect confuses indexing. Analytics labels like `site="nempl.app"` are names, not URLs; leave them.
+
+**Performance rules (Lighthouse mobile ≥ 95 on `/` and `/ai-agents`).** Photos go through `next/image` (`fill` + `sizes`, `priority` only on the LCP image) — never a raw `<img>` for files in `public/uploads`, some are 2–3 MB. Sanity images get `auto("format")` inside `urlFor()`. Fonts are loaded as variable fonts without a `weight` list (one file per alphabet); the mono font has `preload: false`.
 
 ## Design-source files (reference only, not build inputs)
 
