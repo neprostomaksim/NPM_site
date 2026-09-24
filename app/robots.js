@@ -1,4 +1,4 @@
-const SITE_URL = "https://nempl.app";
+const SITE_URL = "https://www.nempl.app";
 
 // robots.txt — открываем сайт для всех поисковых и AI-краулеров,
 // закрываем только Sanity Studio (/admin). AI-боты (GPTBot, PerplexityBot,
@@ -14,6 +14,5 @@ export default function robots() {
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   };
 }

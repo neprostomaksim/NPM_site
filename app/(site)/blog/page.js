@@ -14,6 +14,7 @@ export const metadata = {
     title: "Блог об ИИ и нейросетях | Максим Леонов",
     description: "Практические инструкции по ChatGPT, разборы кейсов, анонсы воркшопов и актуальные новости искусственного интеллекта от AI-наставника Максима Леонова.",
     locale: "ru_RU",
+    images: [{ url: "/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png", width: 1200, height: 630, alt: "Блог Максима Леонова об ИИ и нейросетях" }],
   },
 };
 

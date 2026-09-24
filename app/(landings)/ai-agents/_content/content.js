@@ -10,7 +10,7 @@ export const WORKSHOP_ID = "ai-agents-29-09";
 export const workshop = workshops.find((w) => w.id === WORKSHOP_ID);
 
 export const LANDING_PATH = "/ai-agents";
-export const LANDING_URL = `https://nempl.app${LANDING_PATH}`;
+export const LANDING_URL = `https://www.nempl.app${LANDING_PATH}`;
 // Дата последней правки содержимого — для dateModified в JSON-LD и блока «Обновлено».
 export const UPDATED_AT = "2026-09-25";
 

@@ -5,7 +5,7 @@ import { LANDING_URL, PRICE_BYN, UPDATED_AT, agents, endsAt, faq, workshop } fro
 // хлебные крошки и сама страница. Это то, что Google показывает в
 // расширенных сниппетах и на что опираются ИИ-поисковики (GEO).
 export default function StructuredData() {
-  const personId = "https://nempl.app/#maxim-leonov";
+  const personId = "https://www.nempl.app/#maxim-leonov";
   const eventId = `${LANDING_URL}#event`;
   const graph = [
     {
@@ -18,14 +18,14 @@ export default function StructuredData() {
       dateModified: UPDATED_AT,
       about: { "@id": eventId },
       breadcrumb: { "@id": `${LANDING_URL}#breadcrumb` },
-      isPartOf: { "@type": "WebSite", "@id": "https://nempl.app/#website", url: "https://nempl.app", name: "Максим Леонов — AI-наставник" },
+      isPartOf: { "@type": "WebSite", "@id": "https://www.nempl.app/#website", url: "https://www.nempl.app", name: "Максим Леонов — AI-наставник" },
     },
     {
       "@type": "BreadcrumbList",
       "@id": `${LANDING_URL}#breadcrumb`,
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Главная", item: "https://nempl.app/" },
-        { "@type": "ListItem", position: 2, name: "Воркшопы", item: "https://nempl.app/workshops" },
+        { "@type": "ListItem", position: 1, name: "Главная", item: "https://www.nempl.app/" },
+        { "@type": "ListItem", position: 2, name: "Воркшопы", item: "https://www.nempl.app/workshops" },
         { "@type": "ListItem", position: 3, name: workshop.title, item: LANDING_URL },
       ],
     },
@@ -33,8 +33,8 @@ export default function StructuredData() {
       "@type": "Person",
       "@id": personId,
       name: "Максим Леонов",
-      url: "https://nempl.app",
-      image: "https://nempl.app/workshops/speaker.jpg",
+      url: "https://www.nempl.app",
+      image: "https://www.nempl.app/workshops/speaker.jpg",
       jobTitle: "AI-эксперт и преподаватель",
       sameAs: [site.speaker.instagramUrl, site.speaker.telegramUrl],
     },
@@ -48,7 +48,7 @@ export default function StructuredData() {
       eventStatus: "https://schema.org/EventScheduled",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       inLanguage: "ru-BY",
-      image: "https://nempl.app/workshops/hero-bg.jpg",
+      image: "https://www.nempl.app/workshops/hero-bg.jpg",
       url: LANDING_URL,
       educationalLevel: "beginner",
       teaches: ["Создание личных ИИ-агентов без программирования", ...agents.map((a) => a.name)],

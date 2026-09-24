@@ -12,20 +12,21 @@ import StructuredData from "./_sections/StructuredData";
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700", "800"],
+  // Вариативный шрифт: один файл на алфавит вместо файла на каждую жирность.
   variable: "--font-sans",
   display: "swap",
 });
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "700"],
   variable: "--font-mono",
   display: "swap",
+  // Моноширинный — только в мелких подписях: не предзагружаем, чтобы не мешал первой отрисовке.
+  preload: false,
 });
 
 export const metadata = {
-  metadataBase: new URL("https://nempl.app"),
+  metadataBase: new URL("https://www.nempl.app"),
   title: "Воркшопы по ИИ в Минске для бизнеса · Максим Леонов",
   description:
     "Практические воркшопы по ИИ в Минске: ИИ-агенты, вайб-кодинг и ИИ-менеджер. За 3 часа создайте рабочий результат на своих задачах.",
@@ -37,7 +38,7 @@ export const metadata = {
     "ИИ-агенты",
     "курсы искусственного интеллекта Минск",
   ],
-  authors: [{ name: "Максим Леонов", url: "https://nempl.app" }],
+  authors: [{ name: "Максим Леонов", url: "https://www.nempl.app" }],
   creator: "Максим Леонов",
   publisher: "Максим Леонов",
   category: "education",

@@ -13,25 +13,26 @@ import { LANDING_PATH, workshop } from "./_content/content";
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700", "800"],
+  // Вариативный шрифт: один файл на алфавит вместо файла на каждую жирность.
   variable: "--font-sans",
   display: "swap",
 });
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "700"],
   variable: "--font-mono",
   display: "swap",
+  // Моноширинный — только в мелких подписях: не предзагружаем, чтобы не мешал первой отрисовке.
+  preload: false,
 });
 
-const title = `Личные ИИ-агенты за один вечер — воркшоп ${workshop.date} в Минске | Максим Леонов`;
+const title = `Личные ИИ-агенты за один вечер — воркшоп ${workshop.date}, Минск`;
 const description =
-  "Воркшоп в Минске: за 3 часа соберите личных ИИ-агентов, которые знают ваши задачи и стиль, — для встреч, контента, документов и поиска информации. Без кода. 29 сентября, 18:30, 130 BYN.";
+  "За 3 часа соберите личных ИИ-агентов для встреч, контента, документов и поиска информации. Без кода. Минск, 29 сентября, 18:30, 130 BYN.";
 
 // OG-картинка берётся автоматически из opengraph-image.js в этой папке.
 export const metadata = {
-  metadataBase: new URL("https://nempl.app"),
+  metadataBase: new URL("https://www.nempl.app"),
   title,
   description,
   keywords: [
@@ -45,7 +46,7 @@ export const metadata = {
     "ChatGPT для руководителей",
     "Максим Леонов",
   ],
-  authors: [{ name: "Максим Леонов", url: "https://nempl.app" }],
+  authors: [{ name: "Максим Леонов", url: "https://www.nempl.app" }],
   creator: "Максим Леонов",
   publisher: "Максим Леонов",
   category: "education",

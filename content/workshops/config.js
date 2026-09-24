@@ -2,7 +2,7 @@
 // Меняете здесь — меняется на всём сайте.
 
 // Адрес лендинга внутри nempl.app — для canonical, JSON-LD и llms.txt.
-export const LANDING_URL = "https://nempl.app/workshops";
+export const LANDING_URL = "https://www.nempl.app/workshops";
 
 export const site = {
   // Дата и время начала воркшопа (ISO, локальное время Минска).
@@ -37,6 +37,6 @@ export const site = {
   speaker: {
     instagramUrl: "https://www.instagram.com/neprostomaksim?igsh=MWo1cnp4ZDd1cGRnZA==",
     telegramUrl: "https://t.me/neprostonewsai",
-    siteUrl: "https://nempl.app",
+    siteUrl: "https://www.nempl.app",
   },
 };

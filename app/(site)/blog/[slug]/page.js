@@ -253,17 +253,17 @@ export default async function BlogPostPage({ params }) {
     "inLanguage": "ru-RU",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://nempl.app/blog/${slug}`,
+      "@id": `https://www.nempl.app/blog/${slug}`,
     },
     "author": {
       "@type": "Person",
       "name": "Максим Леонов",
-      "url": "https://nempl.app",
+      "url": "https://www.nempl.app",
     },
     "publisher": {
       "@type": "Person",
       "name": "Максим Леонов",
-      "url": "https://nempl.app",
+      "url": "https://www.nempl.app",
     },
   };
 

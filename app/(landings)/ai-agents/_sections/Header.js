@@ -2,7 +2,7 @@ export default function Header() {
   return (
     <header className="site-header show">
       <div className="header-bar">
-        <a className="logo" href="#top" aria-label="Личные ИИ-агенты — в начало">
+        <a className="logo" href="#top" aria-label="/ai мастерская — в начало">
           <span className="brand-mark mono">/ai</span> мастерская<span className="logo-dot">.</span>
         </a>
         <nav className="header-nav" aria-label="Навигация по странице">

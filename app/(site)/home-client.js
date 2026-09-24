@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ── HOOKS ── */
 function useScrollReveal(threshold = 0.12) {
@@ -120,6 +121,7 @@ function Nav() {
       <div
         className={`mobile-menu${open ? " open" : ""}`}
         role="dialog"
+        aria-label="Меню сайта"
         aria-modal="true"
       >
         <button
@@ -188,10 +190,13 @@ function Hero() {
         </div>
       </div>
       <div className="hero-photo">
-        <img
+        {/* next/image: сжатый WebP/AVIF под размер экрана вместо PNG на 2 МБ; priority — это LCP. */}
+        <Image
           src="/uploads/A_detailed_8k_cinematic_portrait_photograph_based__delpmaspu.png"
           alt="Максим Леонов — AI-наставник, эксперт по искусственному интеллекту"
-          loading="eager"
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 45vw"
         />
         <span className="hero-scroll">↓ scroll</span>
       </div>
@@ -397,24 +402,27 @@ function About() {
             style={{ transitionDelay: "180ms" }}
           >
             <div className="about-gphoto">
-              <img
+              <Image
                 src="/uploads/1-134.jpg"
                 alt="Максим Леонов — индивидуальная консультация по внедрению ИИ"
-                loading="lazy"
+                fill
+                sizes="(max-width: 1024px) 50vw, 300px"
               />
             </div>
             <div className="about-gphoto">
-              <img
+              <Image
                 src="/uploads/v-4.JPG"
                 alt="Максим Леонов ведёт воркшоп по нейросетям и ChatGPT"
-                loading="lazy"
+                fill
+                sizes="(max-width: 1024px) 50vw, 300px"
               />
             </div>
             <div className="about-gphoto wide">
-              <img
+              <Image
                 src="/uploads/_MG_0214.jpg"
                 alt="Максим Леонов на конференции по искусственному интеллекту — панельная дискуссия"
-                loading="lazy"
+                fill
+                sizes="(max-width: 1024px) 100vw, 600px"
               />
             </div>
           </div>
@@ -456,7 +464,7 @@ function EventsStrip() {
       >
         {photos.map((p, i) => (
           <div key={i} className="event-photo">
-            <img src={p.src} alt={alts[i]} loading="lazy" />
+            <Image src={p.src} alt={alts[i]} fill sizes="(max-width: 768px) 50vw, 30vw" />
             <div className="event-label">{p.label}</div>
           </div>
         ))}

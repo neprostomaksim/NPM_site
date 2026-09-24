@@ -4,7 +4,7 @@ import Analytics from "@/components/Analytics";
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  // Вариативный шрифт: один файл на алфавит вместо 7 начертаний.
   variable: "--font-main",
   display: "swap",
 });
@@ -23,7 +23,7 @@ export const metadata = {
   authors: [{ name: "Максим Леонов" }],
   creator: "Максим Леонов",
   robots: "index, follow",
-  metadataBase: new URL("https://nempl.app"),
+  metadataBase: new URL("https://www.nempl.app"),
   // Коды подтверждения прав в вебмастерах. Задаются через env-переменные
   // на проде (как и Sanity ID). Если переменная не задана — тег не выводится.
   verification: {
@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
     "name": "Максим Леонов",
     "jobTitle": "AI-наставник, эксперт по искусственному интеллекту",
     "description": "Провожу воркшопы по ChatGPT и нейросетям, личное наставничество 1:1 и корпоративное обучение ИИ.",
-    "url": "https://nempl.app",
+    "url": "https://www.nempl.app",
     "sameAs": [
       "https://instagram.com/neprostomaksim",
       "https://t.me/leonovmax",

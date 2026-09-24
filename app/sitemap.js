@@ -1,6 +1,6 @@
 import { client } from "../sanity/client";
 
-const SITE_URL = "https://nempl.app";
+const SITE_URL = "https://www.nempl.app";
 
 // Динамический sitemap.xml: статические разделы + все статьи блога из Sanity.
 // Sanity-запрос обёрнут в try/catch (как и остальные чтения в проекте):
