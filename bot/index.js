@@ -66,6 +66,32 @@ function workshopKeyboard(excludeWorkshopId) {
   return kb;
 }
 
+// Организатор отвечает (Reply) на уведомление о заявке в чате ADMIN_CHAT_ID —
+// бот пересылает этот ответ клиенту от своего имени. Работает всегда, даже если
+// у клиента скрыт номер и закрыты личные сообщения: клиент сам запустил бота.
+// ID клиента берём из строки «🆔 ID: …» в тексте уведомления — без хранения состояния.
+bot.on("message", async (ctx, next) => {
+  if (!ADMIN_CHAT_ID || String(ctx.chat.id) !== String(ADMIN_CHAT_ID)) return next();
+  const replied = ctx.message.reply_to_message;
+  const source = replied?.text || replied?.caption || "";
+  const match = replied?.from?.id === ctx.me.id ? source.match(/ID:\s*(\d{4,})/) : null;
+  if (!match || ctx.message.text?.startsWith("/")) return next();
+
+  const clientId = Number(match[1]);
+  try {
+    await ctx.api.copyMessage(clientId, ctx.chat.id, ctx.message.message_id);
+    await ctx.reply("✅ Отправлено клиенту", { reply_to_message_id: ctx.message.message_id });
+  } catch (e) {
+    const blocked = e?.error_code === 403;
+    await ctx.reply(
+      blocked
+        ? "❌ Не доставлено: клиент остановил или заблокировал бота. Напишите ему по нику или позвоните."
+        : "❌ Не удалось отправить: " + (e?.description || e?.message || "ошибка Telegram"),
+      { reply_to_message_id: ctx.message.message_id }
+    );
+  }
+});
+
 bot.command("start", async (ctx) => {
   // ?start=... из ссылки лендинга — метка источника (для статистики).
   const source = (ctx.match || "").trim() || DEFAULT_SOURCE;
@@ -226,12 +252,13 @@ async function saveLead(ctx, s, rawPhone) {
   // Уведомление организатору о новой заявке.
   const when = new Date().toLocaleString("ru-RU", { timeZone: "Europe/Minsk" });
   await notifyAdmin(
-    "🆕 Новая заявка\n\n" +
-      `🎓 Воркшоп: ${workshopLabel}\n` +
-      `👤 Имя: ${s.name}\n` +
-      `📞 Телефон: ${phone}\n` +
-      `🔗 Telegram: ${from.username ? "@" + from.username : "—"}\n` +
-      `🕐 ${when}`
+    "🆕 <b>Новая заявка (в боте)</b>\n\n" +
+      `🎓 Воркшоп: ${esc(workshopLabel)}\n` +
+      `👤 Имя: ${esc(s.name)}\n` +
+      `📞 Телефон: ${esc(phone)}\n` +
+      telegramLines(from) +
+      `🕐 ${when}` +
+      REPLY_HINT
   );
 }
 
@@ -281,11 +308,13 @@ async function continueWebsiteLead(ctx, token) {
   await sendPayment(ctx);
 
   await notifyAdmin(
-    "🔔 Заявка перешла в Telegram\n\n" +
-      `🎓 Воркшоп: ${workshopLabel}\n` +
-      `👤 Имя: ${lead.name}\n` +
-      `📞 Телефон: ${lead.phone}\n` +
-      "💳 Ссылка на оплату отправлена"
+    "🔔 <b>Заявка с сайта перешла в Telegram</b>\n\n" +
+      `🎓 Воркшоп: ${esc(workshopLabel)}\n` +
+      `👤 Имя: ${esc(lead.name)}\n` +
+      `📞 Телефон: ${esc(lead.phone)}\n` +
+      telegramLines(from) +
+      "💳 Ссылка на оплату отправлена" +
+      REPLY_HINT
   );
 
   if (WORKSHOPS.some((item) => item.id !== workshop?.id)) {
@@ -356,13 +385,39 @@ async function sendMetaLead({ from, phone, name, workshopLabel }) {
   }
 }
 
-// Шлём организатору сообщение, если задан ADMIN_CHAT_ID. Ошибка тут не ломает запись клиента.
+// Экранирование для parse_mode HTML: имя/телефон вводит клиент — без этого
+// символы < > & сломали бы уведомление.
+function esc(value) {
+  return String(value ?? "—").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Как связаться с клиентом в Telegram: кликабельный @ник, а если ника нет —
+// ссылка на профиль по ID. Строка «🆔 ID: …» нужна пересылке ответов (см. выше).
+function telegramLines(from) {
+  if (!from?.id) return "💬 Telegram: —\n";
+  const contact = from.username
+    ? `<a href="https://t.me/${esc(from.username)}">@${esc(from.username)}</a>`
+    : `<a href="tg://user?id=${from.id}">открыть профиль</a> (ника нет)`;
+  const fullName = [from.first_name, from.last_name].filter(Boolean).join(" ");
+  return `💬 Telegram: ${contact}${fullName ? ` · ${esc(fullName)}` : ""}\n🆔 ID: <code>${from.id}</code>\n`;
+}
+
+const REPLY_HINT = "\n\n↩️ <i>Ответьте на это сообщение — бот перешлёт ответ клиенту.</i>";
+
+// Шлём организатору сообщение (HTML), если задан ADMIN_CHAT_ID. Ошибка тут не ломает запись клиента.
 async function notifyAdmin(text) {
   if (!ADMIN_CHAT_ID) return;
   try {
-    await bot.api.sendMessage(ADMIN_CHAT_ID, text);
+    await bot.api.sendMessage(ADMIN_CHAT_ID, text, {
+      parse_mode: "HTML",
+      link_preview_options: { is_disabled: true },
+    });
   } catch (e) {
     console.error("notifyAdmin error:", e);
+    // Фолбэк: если HTML не разобрался — шлём без разметки, чтобы заявка не потерялась.
+    try {
+      await bot.api.sendMessage(ADMIN_CHAT_ID, text.replace(/<[^>]+>/g, ""));
+    } catch (_) {}
   }
 }
 
